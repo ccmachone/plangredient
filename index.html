@@ -1,0 +1,236 @@
+<html>
+<head>
+    <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+    <script src="firebase_setup.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Optional theme -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+      function isEquivalent(a, b) {
+          if (a.length != b.length) {
+            return false;
+          }
+          for (var i in a) {
+              // Create arrays of property names
+              var aProps = Object.getOwnPropertyNames(a[i]);
+              var bProps = Object.getOwnPropertyNames(b[i]);
+
+              // If number of properties is different,
+              // objects are not equivalent
+              if (aProps.length != bProps.length) {
+                  return false;
+              }
+
+              for (var j = 0; j < aProps[i].length; j++) {
+                  var propName = aProps[i][j];
+
+                  // If values of same property are not equal,
+                  // objects are not equivalent
+                  if (a[i][propName] !== b[i][propName]) {
+                      return false;
+                  }
+              }
+          }
+
+            // If we made it this far, objects
+            // are considered equivalent
+            return true;
+        }
+
+
+      function addRecipe(name, ingredients, directions, prep_time, cook_time, callback)
+      {
+        if (callback == undefined) {
+          callback = "addRecipeResult";
+        }
+        var temp = recipes_ref.orderByChild("name").equalTo(name).on("value", function(snapshot) {
+            recipes_ref.off("value", temp);
+            existing_recipes = snapshot.val();
+            var recipe_key = false;
+            for (var key in existing_recipes) {
+                var existing_recipe = existing_recipes[key];
+                if (isEquivalent(existing_recipe['ingredients'], ingredients) && existing_recipe['directions'] == directions && existing_recipe['prep_time'] == prep_time && existing_recipe['cook_time'] == cook_time) {
+                    recipe_key = key;
+                    break;
+                }
+            }
+            if (recipe_key === false) {
+                return_value = recipes_ref.push({name : name, ingredients : ingredients, directions : directions, prep_time : prep_time, cook_time : cook_time});
+                recipe_key = return_value.key;
+                for (var key in ingredients) {
+                    if (ingredients.hasOwnProperty(key)) {
+                        associateIngredientNameWithRecipeIds(ingredients[key]['name'], [recipe_key]);
+                    }
+                }
+            }
+            window[callback](recipe_key);
+        })
+      }
+
+      function addRecipeResult(recipe_key)
+      {
+        console.log(recipe_key);
+      }
+
+      function associateIngredientNameWithRecipeIds(ingredient_name, recipe_ids, callback)
+      {
+          if (callback == undefined) {
+              callback = "associateIngredientNameWithRecipeIdsResult";
+          }
+
+          ingredient_name_to_recipe_ids_ref.orderByChild("ingredient_name").equalTo(ingredient_name).once("value").then(function(snapshot){
+              ingredient_name_to_recipe_ids_objects = snapshot.val();
+              var key = false;
+              for (key in ingredient_name_to_recipe_ids_objects) {
+                  if (ingredient_name_to_recipe_ids_objects.hasOwnProperty(key)) {
+                      break;//TODO if data integrity isn't preserved when data is written, multiple objects could be returned.
+                  }
+              }
+              var updated_ingredient_name_to_recipe_ids = {};
+              if (key == false) {
+                  key = ingredient_name_to_recipe_ids_ref.push().key;
+                  updated_ingredient_name_to_recipe_ids["/" + ingredient_name_to_recipe_ids_table_name + "/" + key] = {"ingredient_name" : ingredient_name, "recipe_ids" : recipe_ids};
+              } else {
+                  recipe_ids.forEach(function (recipe_id, _) {
+                      if (ingredient_name_to_recipe_ids_objects[key]['recipe_ids'].indexOf(recipe_id) == -1) {
+                          ingredient_name_to_recipe_ids_objects[key]['recipe_ids'].push(recipe_id);
+                      }
+                  });
+                  updated_ingredient_name_to_recipe_ids["/" + ingredient_name_to_recipe_ids_table_name + "/" + key] = ingredient_name_to_recipe_ids_objects[key];
+              }
+              result = firebase.database().ref().update(updated_ingredient_name_to_recipe_ids);
+              window[callback](result);
+          });
+      }
+
+      function associateIngredientNameWithRecipeIdsResult(ingredient_name_to_recipe_ids)
+      {
+          console.log(ingredient_name_to_recipe_ids);
+      }
+
+      function getIngredientNameToRecipeIdsByIngredientName(ingredient_name, callback)
+      {
+          if (callback == undefined) {
+              callback = "getIngredientNameToRecipeIdsByIngredientNameResult";
+          }
+          ingredient_name_to_recipe_ids_ref.orderByChild("ingredient_name").equalTo(ingredient_name).once("value").then(function(snapshot){
+              ingredient_name_to_recipe_ids_objects = snapshot.val();
+              var key = false;
+              for (key in ingredient_name_to_recipe_ids_objects) {
+                  if (ingredient_name_to_recipe_ids_objects.hasOwnProperty(key)) {
+                      break;//TODO if data integrity isn't preserved when data is written, multiple objects could be returned.
+                  }
+              }
+              if (key == false) {
+                  ingredient_name_to_recipe_ids = {};
+              } else {
+                  ingredient_name_to_recipe_ids = {"id" : key, "ingredient_name_to_recipe_ids" : ingredient_name_to_recipe_ids_objects[key]};
+              }
+              window[callback](ingredient_name_to_recipe_ids);
+          })
+      }
+
+      function getIngredientNameToRecipeIdsByIngredientNameResult(ingredient_name_to_recipe_ids)
+      {
+          console.log(ingredient_name_to_recipe_ids);
+      }
+
+      function getRecipeById(id, callback)
+      {
+          if (callback == undefined) {
+              callback = "getRecipeByIdResult";
+          }
+          recipes_ref.child(id).once("value").then(function(snapshot){
+              recipe_object = snapshot.val();
+              if (recipe_object == null) {
+                  recipe_object = {};
+              } else {
+                  recipe_object = {"id" : snapshot.key, "recipe" : recipe_object};
+              }
+              window[callback](recipe_object);
+          })
+      }
+
+      function getRecipeByIdResult(recipe)
+      {
+          console.log(recipe);
+      }
+
+      function addUser(email, password, callback)
+      {
+          if (callback == undefined) {
+            callback = "addUserResult";
+          }
+          var temp = users_ref.orderByChild("email").equalTo(email).on("value", function(snapshot) {
+            users_ref.off("value", temp);
+            existing_users = snapshot.val();
+            var user_key = false;
+            for (var key in existing_users) {
+              user_key = key;
+              break;
+            }
+            if (user_key === false) {
+              var user_obj = {email : email, password : password};
+              return_value = users_ref.push(user_obj);
+              user = {"id" : return_value.key, "user" : user_obj};
+            } else {
+              if (existing_users[user_key]['password'] == password) {
+                user = {"id" : key, "user" : existing_users[user_key]};
+              } else {
+                user = {};
+              }
+            }
+            window[callback](user);
+          })
+      }
+
+      function addUserResult(user)
+      {
+        console.log(user);
+      }
+
+      function getUserByEmailPassword(email, password, callback)
+      {
+          if (callback == undefined) {
+            callback = "getUserByEmailPasswordResult";
+          }
+          var temp = users_ref.orderByChild("email").equalTo(email).on("value", function(snapshot) {
+            users_ref.off("value", temp);
+            existing_users = snapshot.val();
+            var user_key = false;
+            for (var key in existing_users) {
+              var existing_user = existing_users[key];
+              if (existing_user['password'] == password) {
+                user_key = key;
+                break;
+              }
+            }
+            if (user_key === false) {
+              user = {};
+            } else {
+              user = {"id" : key, "user" : existing_users[user_key]};
+            }
+            window[callback](user);
+          })
+      }
+
+      function getUserByEmailPasswordResult(user)
+      {
+        console.log(user);
+      }
+
+    </script>
+    <script type='text/javascript'>
+
+    </script>
+</head>
+<body class="full">
+
+</html>
