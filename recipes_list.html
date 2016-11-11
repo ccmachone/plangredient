@@ -1,0 +1,52 @@
+<html>
+<head>
+    <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+    <script src="firebase_setup.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <style>
+        .recipe_image {
+            width: 80px;
+            height: auto;
+        }
+        .caption {
+            text-align: center;
+        }
+    </style>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="notify.min.js"></script>
+
+    <!-- Optional theme -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="recipes_tab.js"></script>
+</head>
+<body class="full">
+    <div class="container theme-showcase" role="main">
+        <h2>PlanGredient</h2>
+        <a href="account.html" style="float:right;">My Account</a>
+        <ul class="nav nav-tabs">
+            <li id="calendar_tab"><a href="#">Calendar</a></li>
+            <li id="grocery_list_tab"><a href="#">Grocery List</a></li>
+            <li id="recipes_tab" class="active" style="cursor: pointer;"><a href="recipes_list.html">Recipes</a></li>
+        </ul>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    Search etc...
+                </div>
+                <br />
+                <div class="row">
+                    <button class="btn btn-success" type="button" onclick="window.location.href='recipes_add.html'">Add Recipe</button>
+                </div>
+            </div>
+            <div class="col-md-8" style="border-left:1px solid black;">
+                <div id="recipes_grid" class="thumbnails"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

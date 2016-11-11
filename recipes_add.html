@@ -1,0 +1,80 @@
+<html>
+<head>
+    <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+    <script src="firebase_setup.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="notify.min.js"></script>
+
+    <!-- Optional theme -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="recipes_tab.js"></script>
+</head>
+<body class="full">
+    <div class="container theme-showcase" role="main">
+        <h2>PlanGredient</h2>
+        <a href="account.html" style="float:right;">My Account</a>
+        <ul class="nav nav-tabs">
+            <li id="calendar_tab"><a href="#">Calendar</a></li>
+            <li id="grocery_list_tab"><a href="#">Grocery List</a></li>
+            <li id="recipes_tab" class="active"><a href="recipes_list.html">Recipes</a></li>
+        </ul>
+        <div class="row">
+            <div class="col-md-4">
+                <ul id="existing_recipes">
+
+                </ul>
+            </div>
+            <div class="col-md-8" style="border-left:1px solid black;">
+                <h2>Add Your Own Recipe<!-- <small>&nbsp;&nbsp;&nbsp;<input type="checkbox" id="recipe_is_private" value="true"> Keep Private</small>--></h2>
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label class="sr-only" for="recipe_name">Recipe Name</label>
+                        <input type="text" class="form-control recipe_input" id="recipe_name" placeholder="Recipe Name">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="prep_time">Prep Time</label>
+                        <input type="number" class="form-control recipe_input" id="prep_time" placeholder="Prep Time">
+                    </div>
+                    <div class="form-group">
+                        <label class="btn btn-default btn-file" id="recipe_image_upload_label" for="recipe_image_upload" style="background-color: lightgray;">Upload Picture</label>
+                        <input type="file" id="recipe_image_upload" style="display: none;">
+                    </div>
+                </form>
+                <div id="ingredients_div">
+                    <form class="form-inline">
+                        <div class="form-group" id="div_for_ingredient_1">
+                            <label class="sr-only" for="ingredient_1_name">Ingredient 1 Name</label>
+                            <input type="text" class="form-control recipe_input" id="ingredient_1_name" placeholder="Ingredient 1 Name">
+                            <label class="sr-only" for="ingredient_1_quantity">Ingredient 1 Quantity</label>
+                            <input type="text" class="form-control recipe_input" id="ingredient_1_quantity" placeholder="Ingredient 1 Quantity">
+                            <label class="sr-only" for="ingredient_1_unit">Ingredient 1 Unit</label>
+                            <input type="text" class="form-control recipe_input" id="ingredient_1_unit" placeholder="Ingredient 1 Unit">
+                        </div>
+                    </form>
+                </div>
+                <span class="glyphicon glyphicon-plus" style="cursor:pointer;" id="add_ingredient_button"></span>
+                <br />
+                <br />
+                <textarea class="form-control recipe_input" rows="3" placeholder="Directions" id="directions"></textarea>
+                <br />
+                <div id="tags_div">
+                    <div class="form-group" id="div_for_tag_1">
+                        <label class="sr-only" for="tag_1">Tag 1</label>
+                        <input type="text" class="form-control recipe_input" id="tag_1" placeholder="Tag 1">
+                    </div>
+                </div>
+                <span class="glyphicon glyphicon-plus" style="cursor:pointer;" id="add_tag_button"></span>
+                <br />
+                <br />
+                <button type="button" class="btn btn-success" id="add_recipe_button" style="float:right;">Add</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

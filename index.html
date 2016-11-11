@@ -5,340 +5,81 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="notify.min.js"></script>
 
     <!-- Optional theme -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script>
-      function isEquivalent(a, b) {
-          if (a.length != b.length) {
-            return false;
-          }
-          for (var i in a) {
-              // Create arrays of property names
-              var aProps = Object.getOwnPropertyNames(a[i]);
-              var bProps = Object.getOwnPropertyNames(b[i]);
-
-              // If number of properties is different,
-              // objects are not equivalent
-              if (aProps.length != bProps.length) {
-                  return false;
-              }
-
-              for (var j = 0; j < aProps[i].length; j++) {
-                  var propName = aProps[i][j];
-
-                  // If values of same property are not equal,
-                  // objects are not equivalent
-                  if (a[i][propName] !== b[i][propName]) {
-                      return false;
-                  }
-              }
-          }
-
-            // If we made it this far, objects
-            // are considered equivalent
-            return true;
+    <script src="recipes_tab.js"></script>
+    <style>
+        .carousel-inner > .item > img,
+        .carousel-inner > .item > a > img {
+            width: 70%;
+            margin: auto;
         }
-
-
-      function addRecipe(name, ingredients, directions, prep_time, callback)
-      {
-        var temp = recipes_ref.orderByChild("name").equalTo(name).on("value", function(snapshot) {
-            recipes_ref.off("value", temp);
-            existing_recipes = snapshot.val();
-            var recipe_key = false;
-            for (var key in existing_recipes) {
-                var existing_recipe = existing_recipes[key];
-                if (isEquivalent(existing_recipe['ingredients'], ingredients) && existing_recipe['directions'] == directions && existing_recipe['prep_time'] == prep_time) {
-                    recipe_key = key;
-                    break;
-                }
-            }
-            if (recipe_key === false) {
-                return_value = recipes_ref.push({name : name, ingredients : ingredients, directions : directions, prep_time : prep_time});
-                recipe_key = return_value.key;
-                for (var key in ingredients) {
-                    if (ingredients.hasOwnProperty(key)) {
-                        associateIngredientNameWithRecipeIds(ingredients[key]['name'], [recipe_key]);
-                    }
-                }
-            }
-            if (callback == undefined) {
-                callback = "addRecipeResult";
-                window[callback](recipe_key);
-            } else {
-                callback(recipe_key);
-            }
-        })
-      }
-
-      function addRecipeResult(recipe_key)
-      {
-        console.log(recipe_key);
-      }
-
-      function associateIngredientNameWithRecipeIds(ingredient_name, recipe_ids, callback)
-      {
-          if (callback == undefined) {
-              callback = "associateIngredientNameWithRecipeIdsResult";
-          }
-
-          ingredient_name_to_recipe_ids_ref.orderByChild("ingredient_name").equalTo(ingredient_name).once("value").then(function(snapshot){
-              ingredient_name_to_recipe_ids_objects = snapshot.val();
-              var key = false;
-              for (key in ingredient_name_to_recipe_ids_objects) {
-                  if (ingredient_name_to_recipe_ids_objects.hasOwnProperty(key)) {
-                      break;//TODO if data integrity isn't preserved when data is written, multiple objects could be returned.
-                  }
-              }
-              var updated_ingredient_name_to_recipe_ids = {};
-              if (key == false) {
-                  key = ingredient_name_to_recipe_ids_ref.push().key;
-                  updated_ingredient_name_to_recipe_ids["/" + ingredient_name_to_recipe_ids_table_name + "/" + key] = {"ingredient_name" : ingredient_name, "recipe_ids" : recipe_ids};
-              } else {
-                  recipe_ids.forEach(function (recipe_id, _) {
-                      if (ingredient_name_to_recipe_ids_objects[key]['recipe_ids'].indexOf(recipe_id) == -1) {
-                          ingredient_name_to_recipe_ids_objects[key]['recipe_ids'].push(recipe_id);
-                      }
-                  });
-                  updated_ingredient_name_to_recipe_ids["/" + ingredient_name_to_recipe_ids_table_name + "/" + key] = ingredient_name_to_recipe_ids_objects[key];
-              }
-              result = firebase.database().ref().update(updated_ingredient_name_to_recipe_ids);
-              window[callback](result);
-          });
-      }
-
-      function associateIngredientNameWithRecipeIdsResult(ingredient_name_to_recipe_ids)
-      {
-          console.log(ingredient_name_to_recipe_ids);
-      }
-
-      function getIngredientNameToRecipeIdsByIngredientName(ingredient_name, callback)
-      {
-          if (callback == undefined) {
-              callback = "getIngredientNameToRecipeIdsByIngredientNameResult";
-          }
-          ingredient_name_to_recipe_ids_ref.orderByChild("ingredient_name").equalTo(ingredient_name).once("value").then(function(snapshot){
-              ingredient_name_to_recipe_ids_objects = snapshot.val();
-              var key = false;
-              for (key in ingredient_name_to_recipe_ids_objects) {
-                  if (ingredient_name_to_recipe_ids_objects.hasOwnProperty(key)) {
-                      break;//TODO if data integrity isn't preserved when data is written, multiple objects could be returned.
-                  }
-              }
-              if (key == false) {
-                  ingredient_name_to_recipe_ids = {};
-              } else {
-                  ingredient_name_to_recipe_ids = {"id" : key, "ingredient_name_to_recipe_ids" : ingredient_name_to_recipe_ids_objects[key]};
-              }
-              window[callback](ingredient_name_to_recipe_ids);
-          })
-      }
-
-      function getIngredientNameToRecipeIdsByIngredientNameResult(ingredient_name_to_recipe_ids)
-      {
-          console.log(ingredient_name_to_recipe_ids);
-      }
-
-      function getRecipeById(id, callback)
-      {
-          if (callback == undefined) {
-              callback = "getRecipeByIdResult";
-          }
-          recipes_ref.child(id).once("value").then(function(snapshot){
-              recipe_object = snapshot.val();
-              if (recipe_object == null) {
-                  recipe_object = {};
-              } else {
-                  recipe_object = {"id" : snapshot.key, "recipe" : recipe_object};
-              }
-              window[callback](recipe_object);
-          })
-      }
-
-      function getRecipeByIdResult(recipe)
-      {
-          console.log(recipe);
-      }
-
-      function addUser(email, password, callback)
-      {
-          if (callback == undefined) {
-            callback = "addUserResult";
-          }
-          var temp = users_ref.orderByChild("email").equalTo(email).on("value", function(snapshot) {
-            users_ref.off("value", temp);
-            existing_users = snapshot.val();
-            var user_key = false;
-            for (var key in existing_users) {
-              user_key = key;
-              break;
-            }
-            if (user_key === false) {
-              var user_obj = {email : email, password : password};
-              return_value = users_ref.push(user_obj);
-              user = {"id" : return_value.key, "user" : user_obj};
-            } else {
-              if (existing_users[user_key]['password'] == password) {
-                user = {"id" : key, "user" : existing_users[user_key]};
-              } else {
-                user = {};
-              }
-            }
-            window[callback](user);
-          })
-      }
-
-      function addUserResult(user)
-      {
-        console.log(user);
-      }
-
-      function getUserByEmailPassword(email, password, callback)
-      {
-          if (callback == undefined) {
-            callback = "getUserByEmailPasswordResult";
-          }
-          var temp = users_ref.orderByChild("email").equalTo(email).on("value", function(snapshot) {
-            users_ref.off("value", temp);
-            existing_users = snapshot.val();
-            var user_key = false;
-            for (var key in existing_users) {
-              var existing_user = existing_users[key];
-              if (existing_user['password'] == password) {
-                user_key = key;
-                break;
-              }
-            }
-            if (user_key === false) {
-              user = {};
-            } else {
-              user = {"id" : key, "user" : existing_users[user_key]};
-            }
-            window[callback](user);
-          })
-      }
-
-      function getUserByEmailPasswordResult(user)
-      {
-        console.log(user);
-      }
-
-    </script>
-
-    <script type='text/javascript'>
-        jQuery(document).on("click", "#add_ingredient_button", function(){
-            var ingredient_number = jQuery("#ingredients_div").children().length + 1;
-            var html = "<form class='form-inline'>";
-            html += "<div class='form-group' id='div_for_ingredient_" + ingredient_number + "'>";
-            html += "<label class='sr-only' for='ingredient_" + ingredient_number + "_name'>Ingredient " + ingredient_number + " Name</label>";
-            html += "<input type='text' class='form-control recipe_input' id='ingredient_" + ingredient_number + "_name' placeholder='Ingredient " + ingredient_number + " Name'>";
-            html += "<label class='sr-only' for='ingredient_" + ingredient_number + "_quantity'>Ingredient " + ingredient_number + " Quantity</label>";
-            html += "<input type='text' class='form-control recipe_input' id='ingredient_" + ingredient_number + "_quantity' placeholder='Ingredient " + ingredient_number + " Quantity'>";
-            html += "<label class='sr-only' for='ingredient_" + ingredient_number + "_unit'>Ingredient " + ingredient_number + " Unit</label>";
-            html += "<input type='text' class='form-control recipe_input' id='ingredient_" + ingredient_number + "_unit' placeholder='Ingredient " + ingredient_number + " Unit'>";
-            html += "</div>";
-            html += "</form>";
-            jQuery("#ingredients_div").append(html);
-        });
-
-        jQuery(document).on("click", "#add_tag_button", function(){
-            var tag_number = jQuery("#tags_div").children().length + 1;
-            var html = "<div class='form-group' id='div_for_tag_" + tag_number + "'>";
-            html += "<label class='sr-only' for='tag_" + tag_number + "'>Tag " + tag_number + "</label>";
-            html += "<input type='text' class='form-control recipe_input' id='tag_" + tag_number + "' placeholder='Tag " + tag_number + "'>";
-            html += "</div>";
-            jQuery("#tags_div").append(html);
-        });
-
-        jQuery(document).on("click", "#add_recipe_button", function(){
-            var recipe = {};
-            recipe['name'] = jQuery("#recipe_name").val();
-            recipe['prep_time'] = jQuery("#prep_time").val();
-            recipe['directions'] = jQuery("#directions").val();
-            recipe['ingredients'] = [];
-            var ingredient_number = 1;
-            while (jQuery("[id^=ingredient_" + ingredient_number + "_").length > 0) {
-                var ingredient = {};
-                ingredient['name'] = jQuery("#ingredient_" + ingredient_number + "_name").val();
-                ingredient['quantity'] = jQuery("#ingredient_" + ingredient_number + "_quantity").val();
-                ingredient['unit'] = jQuery("#ingredient_" + ingredient_number + "_unit").val();
-                recipe['ingredients'].push(ingredient);
-                ingredient_number++;
-            }
-            console.log(recipe);
-            addRecipe(recipe['name'], recipe['ingredients'], recipe['directions'], recipe['prep_time'], function(recipe_id){
-                console.log("Successfully added recipe: " + recipe_id);
-                jQuery(".recipe_input").val("");
-            });
-        });
-
-        recipes_ref.on("child_added", function(recipe){
-            recipe_object = recipe.val();
-            var html = "<li id='persisted_recipe_" + recipe.key + "'>" + recipe_object['name'] + "</li>";
-            jQuery("#existing_recipes").append(html);
-        })
-    </script>
+        .carousel-caption {
+            color: black !important;
+        }
+    </style>
 </head>
 <body class="full">
-    <div class="container theme-showcase" role="main">
-        <h2>PlanGredient</h2>
-        <ul class="nav nav-tabs">
-            <li><a href="#">Calendar</a></li>
-            <li><a href="#">Grocery List</a></li>
-            <li class="active"><a href="#">Recipes</a></li>
-        </ul>
-        <div class="row">
-            <div class="col-md-4">
-                <ul id="existing_recipes">
+<div class="container theme-showcase" role="main">
+    <h2>PlanGredient</h2>
+    <a href="account.html" style="float:right;">My Account</a>
+    <ul class="nav nav-tabs">
+        <li id="calendar_tab"><a href="#">Calendar</a></li>
+        <li id="grocery_list_tab"><a href="#">Grocery List</a></li>
+        <li id="recipes_tab"><a href="recipes_list.html">Recipes</a></li>
+    </ul>
+</div>
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
 
-                </ul>
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+
+        <div class="item active">
+            <img src="no_image.svg" alt="Chania" width="460" height="345">
+            <div class="carousel-caption">
+                <h3>Calendar</h3>
+                <p>Plan stuff</p>
             </div>
-            <div class="col-md-8" style="border-left:1px solid black;">
-                <h2>Add Your Own Recipe<!-- <small>&nbsp;&nbsp;&nbsp;<input type="checkbox" id="recipe_is_private" value="true"> Keep Private</small>--></h2>
-                <form class="form-inline">
-                    <div class="form-group">
-                        <label class="sr-only" for="recipe_name">Recipe Name</label>
-                        <input type="text" class="form-control recipe_input" id="recipe_name" placeholder="Recipe Name">
-                    </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="prep_time">Prep Time</label>
-                        <input type="number" class="form-control recipe_input" id="prep_time" placeholder="Prep Time">
-                    </div>
-                </form>
-                <div id="ingredients_div">
-                    <form class="form-inline">
-                        <div class="form-group" id="div_for_ingredient_1">
-                            <label class="sr-only" for="ingredient_1_name">Ingredient 1 Name</label>
-                            <input type="text" class="form-control recipe_input" id="ingredient_1_name" placeholder="Ingredient 1 Name">
-                            <label class="sr-only" for="ingredient_1_quantity">Ingredient 1 Quantity</label>
-                            <input type="text" class="form-control recipe_input" id="ingredient_1_quantity" placeholder="Ingredient 1 Quantity">
-                            <label class="sr-only" for="ingredient_1_unit">Ingredient 1 Unit</label>
-                            <input type="text" class="form-control recipe_input" id="ingredient_1_unit" placeholder="Ingredient 1 Unit">
-                        </div>
-                    </form>
-                </div>
-                <span class="glyphicon glyphicon-plus" style="cursor:pointer;" id="add_ingredient_button"></span>
-                <br />
-                <br />
-                <textarea class="form-control recipe_input" rows="3" placeholder="Directions" id="directions"></textarea>
-                <br />
-                <div id="tags_div">
-                    <div class="form-group" id="div_for_tag_1">
-                        <label class="sr-only" for="tag_1">Tag 1</label>
-                        <input type="text" class="form-control recipe_input" id="tag_1" placeholder="Tag 1">
-                    </div>
-                </div>
-                <span class="glyphicon glyphicon-plus" style="cursor:pointer;" id="add_tag_button"></span>
-                <br />
-                <br />
-                <button type="button" class="btn btn-success" id="add_recipe_button" style="float:right;">Add</button>
+        </div>
+
+        <div class="item">
+            <img src="no_image.svg" alt="Chania" width="460" height="345">
+            <div class="carousel-caption">
+                <h3>Grocery List</h3>
+                <p>What you need to buy...</p>
+            </div>
+        </div>
+
+        <div class="item">
+            <img src="no_image.svg" alt="Flower" width="460" height="345">
+            <div class="carousel-caption">
+                <h3>Recipes</h3>
+                <p>Browse or add...</p>
             </div>
         </div>
     </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
 </body>
 </html>
