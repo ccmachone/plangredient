@@ -2,6 +2,7 @@
 <head>
     <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
     <script src="firebase_setup.js"></script>
+    <script src="common.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <style>
@@ -22,53 +23,8 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="recipes_tab.js"></script>
+    <script src="account.js"></script>
     <script src="sha512.js"></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function(){
-            if (window.sessionStorage.getItem("user") != null) {
-                jQuery("#account_info_div").show();
-            } else {
-                jQuery("#sign_in_or_up_div").show();
-            }
-        })
-
-        jQuery(document).on("click", "#sign_in_button", function(){
-            var email = jQuery("#email").val();
-            getUserByEmail(email, function(user){
-                if (user['id'] == undefined) {
-                    jQuery.notify("Account not found. Perhaps you meant to sign up?");
-                } else {
-                    if (verifyPassword(jQuery("#password").val(), user['user']['password'])) {
-                        window.sessionStorage.setItem("user", user);
-                        window.location.href = "recipes_list.html";
-                    } else {
-                        jQuery.notify("Invalid email/password!");
-                    }
-                }
-            });
-        });
-
-        jQuery(document).on("click", "#sign_up_button", function(){
-            var email = jQuery("#email").val();
-            var password = makeHash(jQuery("#password").val());
-            getUserByEmail(email, function(user){
-                if (user['id'] != undefined) {
-                    jQuery.notify("Account already exists!");
-                } else {
-                   addUser(email, password, function(user){
-                       window.sessionStorage.setItem("user", user);
-                       window.location.href = "recipes_list.html";
-                   })
-                }
-            });
-        });
-
-        jQuery(document).on("click", "#sign_out_button", function(){
-            window.sessionStorage.removeItem("user");
-            window.location.href = "index.html";
-        })
-    </script>
 </head>
 <body class="full">
     <div class="container theme-showcase" role="main">
@@ -104,13 +60,16 @@
             <div class="col-md-6">
                 <h3>Account Info</h3>
                 <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    <label for="email_update">Email address</label>
+                    <input type="email" class="form-control" id="email_update" aria-describedby="emailHelp" placeholder="Enter email" readonly="true">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Password">
+                    <label for="old_password">Old Password</label>
+                    <input type="password" class="form-control" id="old_password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label for="new_password">New Password</label>
+                    <input type="password" class="form-control" id="new_password" placeholder="Password">
                 </div>
                 <button id="sign_out_button" class="btn btn-danger">Sign Out</button>
                 <button id="update_button" class="btn btn-success" style="float:right;">Update</button>
