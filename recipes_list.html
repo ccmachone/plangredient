@@ -6,6 +6,40 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet">
     <style>
+
+	#searchNav {
+    		margin-top:70px;
+    		margin-right:25px;
+    		float:left;
+    		width:22%;
+    		height:600px;
+    		background-color:#eff5f5;
+    	}
+    	.searchButtons {
+    		margin-right:15px;
+
+    	}
+    	#recentsNav {
+    		float:left;
+    	}
+    	#RecentRecipes {
+    		margin-top:10px;
+    		font-size:25pt;
+    	}
+    	.image_container {
+    		display:inline-flex;
+    		padding:3px 3px;
+    		margin:15px;
+    		border-style:solid;
+    		border-color:navy;
+    		border-width:1px 3px 3px 1px;
+    		box-sizing:order-box;
+    		width: 250px; 
+    		height:250px;
+   	 }
+        .recents {
+            overflow:hidden;
+        }
         .recipe_image {
             width: 80px;
             height: auto;
@@ -44,7 +78,37 @@
             <li id="grocery_list_tab"><a href="grocery_list.html">Grocery List</a></li>
             <li id="recipes_tab" class="active" style="cursor: pointer;"><a href="recipes_list.html">Recipes</a></li>
         </ul>
-        <div class="row">
+        
+
+        <div class="row" id="searchNav">
+        	<div class="search">
+        		<p id="searchLabel">Search:</p>
+        		<input type="checkbox" name="allRecipes" value="All">All Recipes<br>
+        		<input type="checkbox" name="myRecipes" value="My">Just My Recipes<br>
+        		<button id="searchButton" class="searchButtons">Search</button>
+        		<input type="text" name="searchBar" value="Search">
+        		<button id="filterButton" class="searchButtons">Filter By</button>
+        		<input type="text" name="filterBar">
+
+        	</div>
+        </div>
+
+		<!-- ADDING JAVASCRIPT TO MAKE INTERACTIVE: When the user clicks the arrow to page left of right for more recent images, each image div should be populated with the next spot in the array of images mod the size of the array...-->
+		<div class="row" id="recentsNav">
+                <div id="RecentRecipes">Recent Recipes</div>
+                <div class="image_container">
+                    <img id="REC_imgONE" class="recents" src="http://www.gimmesomeoven.com/wp-content/uploads/2013/04/Strawberry-and-Avocado-Spinach-Salad-4.jpg">
+                </div>
+                <div class="image_container">
+                    <img id="REC_imgTWO" class="recents" src="http://smilingbodysmilingmind.com/wp-content/uploads/2015/07/bananna-avocado-smoothie.jpg">
+                </div>
+                <div class="image_container">
+                    <img id="REC_imgTHREE" class="recents" src="http://recipetreasure.com/wp-content/uploads/2014/02/flatbread-margherita-pizza-recipe-treasure-3.jpg">
+                </div>
+        </div>
+
+
+	<div class="row">
             <div class="col-md-4">
                 <div class="row">
                     Search etc...
