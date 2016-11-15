@@ -1,3 +1,56 @@
+
+$( document ).ready(function()
+{
+	setCalendarDateIds("calendarWeek1",0);
+	setCalendarDateIds("calendarWeek2",7);
+});
+
+/*
+	Pass in the id for the table, and the dateOffset will be how many days into the future from the current date you want the first day to be on the table.
+	EX:  IF you want to make a calendar with today as the first day, pass in 0 for dateOffset.  If you want a table for next week from today, pass in 7.  Etc. 
+*/
+function setCalendarDateIds(tableId, dateOffset)
+{
+	var meal = "";
+	var rowCounter = 0;
+	var id = "";
+	
+	$("#"+tableId+" tr").each(function ()
+	{
+		rowCounter = rowCounter +1;
+		
+		switch(rowCounter)
+		{
+			case 3: 
+				meal = "breakfast";
+				break;
+			case 5:
+				meal = "lunch";
+				break;
+			case 7:
+				meal = "dinner";
+				break;
+			default:
+				meal = "";
+				break;
+		}
+		
+		var date = new Date();
+		date.setDate(date.getDate() +dateOffset);
+		
+		$('td', this).each(function () 
+		{
+			id = meal + "_" + date.getDate() +"/"+date.getMonth() +  "/" + date.getYear()
+			$(this).attr('id', id);
+			
+			date.setDate(date.getDate() +1);
+		})
+
+	})
+}
+
+
+
 function planRecipeForMealOnDate(recipe_id, meal_enum, date, callback)
 {
     var logged_in_user = getLoggedInUser();
