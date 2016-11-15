@@ -1,15 +1,15 @@
 
 $( document ).ready(function()
 {
-	setCalendarDateIds("calendarWeek1",0);
-	setCalendarDateIds("calendarWeek2",7);
+	setCalendarDateIds("calendarWeek1",1);
+	setCalendarDateIds("calendarWeek2",2);
 });
 
 /*
-	Pass in the id for the table, and the dateOffset will be how many days into the future from the current date you want the first day to be on the table.
-	EX:  IF you want to make a calendar with today as the first day, pass in 0 for dateOffset.  If you want a table for next week from today, pass in 7.  Etc. 
+	weekNumber as 1 will be the current week.
+	weekNumber as 2 will set up dates for next week.
 */
-function setCalendarDateIds(tableId, dateOffset)
+function setCalendarDateIds(tableId, weekNumber)
 {
 	var meal = "";
 	var rowCounter = 0;
@@ -36,7 +36,14 @@ function setCalendarDateIds(tableId, dateOffset)
 		}
 		
 		var date = new Date();
-		date.setDate(date.getDate() +dateOffset);
+	
+		if(weekNumber === 2)
+		{
+			date.setDate(date.getDate() + 7);
+		}
+		
+		var weekDay = date.getDay();
+		date.setDate(date.getDate() - (weekDay - 1));  //Get the month day for this week's monday. 
 		
 		$('td', this).each(function () 
 		{
