@@ -1,0 +1,57 @@
+<html>
+<head>
+    <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+    <script src="firebase_setup.js"></script>
+    <script src="common.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="notify.min.js"></script>
+
+    <!-- Optional theme -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="recipes_tab.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet">
+    <style>
+        #plangredient {
+            font-family: 'Syncopate', sans-serif;
+        }
+        .nav{
+            font-family: 'Syncopate', sans-serif;
+        }
+        .active {
+            font-weight: bolder;
+        }
+
+
+    </style>
+</head>
+<body class="full">
+    <div class="container theme-showcase" role="main">
+        <h2 id="plangredient">PlanGredient</h2>
+        <a href="account.html" style="float:right;">My Account</a>
+        <ul class="nav nav-tabs">
+            <li id="calendar_tab"><a href="calendar.html">Calendar</a></li>
+            <li id="grocery_list_tab"><a href="grocery_list.html">Grocery List</a></li>
+            <li id="recipes_tab" class="active"><a href="recipes_list.html">Recipes</a></li>
+        </ul>
+        <div class="row">
+            <div class="col-md-4">
+                <ul id="existing_recipes">
+
+                </ul>
+            </div>
+            <div class="col-md-8" style="border-left:1px solid black;">
+                <h2>Recipe Name</h2>
+                Prep Time
+              
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

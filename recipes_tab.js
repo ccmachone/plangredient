@@ -184,7 +184,7 @@ recipes_ref.on("child_added", function(recipe){
     var html = "<li id='persisted_recipe_" + recipe.key + "'>" + recipe_object['name'] + "</li>";
     jQuery("#existing_recipes").append(html);
 
-    html = "<div class='col-md-4'><a class='thumbnail' href='#'><img class='recipe_image img-rounded' src='";
+    html = "<div class='col-md-4'><a class='thumbnail' href='recipe_display.html'><img class='recipe_image img-rounded' src='";
     if (recipe_object['image'] != "" && recipe_object['image'] != undefined) {
         html += recipe_object['image'];
     } else {
