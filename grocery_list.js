@@ -5,8 +5,16 @@ $(function(){
     }
 });
 
+
+
 jQuery(document).ready(function(){
     getGroceries(buildGroceryList);
+    $("#print_list").click(function() {
+    	print(".grocery_list");
+    });
+    $(".delete").click(function() {
+    	console.log ("li");
+    });
 });
 
 function buildGroceryList(grocery_list, planned_recipes)

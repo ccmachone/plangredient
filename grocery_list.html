@@ -39,56 +39,70 @@
         .active {
             font-weight: bolder;
         }
+        .delete {
+            display: inline-block;
+            margin-left: 1%;
+            color: #F74F57;
+        }
+        #calendar_tab {
+            background-color: #C8E6C9;
+        }
+        #recipes_tab {
+            background-color: #C8E6C9;
+        }
+        .heading {
+            background-color: #4CC151;
+        }
+        
     </style>
 </head>
 <body class="full">
 <div class="container theme-showcase" role="main">
-    <h2 id="plangredient">PlanGredient</h2>
-    <a href="account.html" style="float:right;">My Account</a>
+    <div class="heading">
+        <h2 id="plangredient">PlanGredient</h2>
+        <a href="account.html" style="float:right;">My Account</a>
+    
     <ul class="nav nav-tabs">
         <li id="calendar_tab"><a href="calendar.html">Calendar</a></li>
         <li id="grocery_list_tab" class="active"><a href="grocery_list.html">Grocery List</a></li>
         <li id="recipes_tab"><a href="recipes_list.html">Recipes</a></li>
     </ul>
-    <h4>Groceries</h4>
-    <div class="btn btn-success" id="print_list" onClick="p_list()">Print</div>
-    <ul>
-        <li>Apples
-            <div class="glyphicon glyphicon-chevron-left"></div>
-            <select class="num_menu"></select>
-            <div class="glyphicon glyphicon-chevron-right"></div>
-        </li>
-        <br>
-        <li>Bacon
-            <div class="glyphicon glyphicon-chevron-left"></div>
-            <select class="num_menu"></select> oz
-            <div class="glyphicon glyphicon-chevron-right"></div>
-        </li>
-        <br>
-        <li>Beef
-            <div class="glyphicon glyphicon-chevron-left"></div>
-            <select class="num_menu"></select> oz
-            <div class="glyphicon glyphicon-chevron-right"></div>
-        </li>
-        <br>
-        <li>Broccoli
-            <div class="glyphicon glyphicon-chevron-left"></div>
-            <select class="num_menu"></select>
-            <div class="glyphicon glyphicon-chevron-right"></div>
-        </li>
-        <br>
-        <li>Chicken
-            <div class="glyphicon glyphicon-chevron-left"></div>
-            <select class="num_menu"></select> oz
-            <div class="glyphicon glyphicon-chevron-right"></div>
-        </li>
-        <br>
-        <li>Flour
-            <div class="glyphicon glyphicon-chevron-left"></div>
-            <select class="num_menu"></select> lbs
-            <div class="glyphicon glyphicon-chevron-right"></div>
-        </li>
-    </ul>
+</div>
+        <div class="grocery_list">
+        <h4>Groceries</h4>
+        <div class="btn btn-success" id="print_list" onClick="p_list()">Print</div>
+        <ul>
+            <li>Apples
+                <select class="num_menu"></select>
+                <button class="delete">x</button>
+            </li>
+            <br>
+            <li>Bacon
+                <select class="num_menu"></select>
+                <button class="delete">x</button>
+            </li>
+            <br>
+            <li>Beef
+                <select class="num_menu"></select>
+                <button class="delete">x</button>
+            </li>
+            <br>
+            <li>Broccoli
+                <select class="num_menu"></select>
+                <button class="delete">x</button>
+            </li>
+            <br>
+            <li>Chicken
+                <select class="num_menu"></select>
+                <button class="delete">x</button>
+            </li>
+            <br>
+            <li>Flour
+                <select class="num_menu"></select>
+                <button class="delete">x</button>
+            </li>
+        </ul>
+    </div>
 </div>
 
 </body>
