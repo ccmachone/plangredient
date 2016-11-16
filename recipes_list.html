@@ -1,6 +1,11 @@
 <html>
 <head>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="notify.min.js"></script>
+
     <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+
     <script src="firebase_setup.js"></script>
     <script src="common.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -34,7 +39,7 @@
     		border-color:navy;
     		border-width:1px 3px 3px 1px;
     		box-sizing:order-box;
-    		width: 250px; 
+    		width: 250px;
     		height:250px;
    	 }
         .recents {
@@ -58,9 +63,6 @@
             font-weight: bolder;
         }
     </style>
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="notify.min.js"></script>
 
     <!-- Optional theme -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
@@ -78,7 +80,7 @@
             <li id="grocery_list_tab"><a href="grocery_list.html">Grocery List</a></li>
             <li id="recipes_tab" class="active" style="cursor: pointer;"><a href="recipes_list.html">Recipes</a></li>
         </ul>
-        
+
 
         <div class="row" id="searchNav">
         	<div class="search">

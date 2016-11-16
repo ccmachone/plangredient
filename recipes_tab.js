@@ -101,9 +101,6 @@ function getIngredientNameToRecipeIdsByIngredientNameResult(ingredient_name_to_r
 
 function getRecipeById(id, callback)
 {
-    if (callback == undefined) {
-        callback = "getRecipeByIdResult";
-    }
     recipes_ref.child(id).once("value").then(function(snapshot){
         recipe_object = snapshot.val();
         if (recipe_object == null) {
@@ -111,7 +108,12 @@ function getRecipeById(id, callback)
         } else {
             recipe_object = {"id" : snapshot.key, "recipe" : recipe_object};
         }
-        window[callback](recipe_object);
+        if (callback == undefined) {
+            callback = "getRecipeByIdResult";
+            window[callback](recipe_object);
+        } else {
+            callback(recipe_object);
+        }
     })
 }
 
@@ -184,7 +186,7 @@ recipes_ref.on("child_added", function(recipe){
     var html = "<li id='persisted_recipe_" + recipe.key + "'>" + recipe_object['name'] + "</li>";
     jQuery("#existing_recipes").append(html);
 
-    html = "<div class='col-md-4'><a class='thumbnail' href='recipe_display.html'><img class='recipe_image img-rounded' src='";
+    html = "<div class='col-md-4'><a class='thumbnail' href='recipe_display.html?recipe_id=" + recipe.key + "'><img class='recipe_image img-rounded' src='";
     if (recipe_object['image'] != "" && recipe_object['image'] != undefined) {
         html += recipe_object['image'];
     } else {
@@ -195,8 +197,14 @@ recipes_ref.on("child_added", function(recipe){
     jQuery("#recipes_grid").append(html);
 });
 
-
-
+jQuery(document).ready(function(){
+    if (jQuery.urlParam("recipe_id")) {
+        console.log("Load recipe " + jQuery.urlParam("recipe_id"));
+        getRecipeById(jQuery.urlParam("recipe_id"), function(recipe){
+            console.log(recipe);
+        })
+    }
+});
 
 
 
