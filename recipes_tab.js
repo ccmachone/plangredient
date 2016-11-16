@@ -209,6 +209,23 @@ jQuery(document).ready(function(){
         console.log("Load recipe " + jQuery.urlParam("recipe_id"));
         getRecipeById(jQuery.urlParam("recipe_id"), function(recipe){
             console.log(recipe);
+            jQuery("#recipe_name").html(recipe['recipe']['name']);
+            jQuery("#prep_time").html('Prep Time: '+recipe['recipe']['prep_time']+' minutes');
+
+            var html="<div>Ingredients</div>";
+            for(var i in recipe['recipe']['ingredients'])
+            {
+                html+="<li>"+recipe['recipe']['ingredients'][i]['quantity'];
+                html+=" "+recipe['recipe']['ingredients'][i]['unit'];
+                html+=" "+recipe['recipe']['ingredients'][i]['name'];
+                html+="</li>";
+            }
+
+            jQuery("#recipe_items").html(html);
+
+            jQuery("#ingredients").html(recipe['recipe']['ingredients']);
+            jQuery("#directions").html(recipe['recipe']['directions']);
+
         })
     }
 });
