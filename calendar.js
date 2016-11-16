@@ -11,45 +11,54 @@ $( document ).ready(function()
 */
 function setCalendarDateIds(tableId, weekNumber)
 {
-	var meal = "";
+	var label = "";
 	var rowCounter = 0;
 	var id = "";
-	
+
 	$("#"+tableId+" tr").each(function ()
 	{
 		rowCounter = rowCounter +1;
-		
+
 		switch(rowCounter)
 		{
-			case 3: 
-				meal = "breakfast";
+            case 2:
+                label = "breakfast-title";
+                break;
+			case 3:
+                label = "breakfast";
 				break;
+            case 4:
+                label = "lunch-title";
+                break;
 			case 5:
-				meal = "lunch";
+                label = "lunch";
 				break;
+            case 6:
+                label = "dinner-title";
+                break;
 			case 7:
-				meal = "dinner";
+                label = "dinner";
 				break;
 			default:
-				meal = "";
+                label = "";
 				break;
 		}
-		
+
 		var date = new Date();
-	
+
 		if(weekNumber === 2)
 		{
 			date.setDate(date.getDate() + 7);
 		}
-		
+
 		var weekDay = date.getDay();
-		date.setDate(date.getDate() - (weekDay - 1));  //Get the month day for this week's monday. 
-		
-		$('td', this).each(function () 
+		date.setDate(date.getDate() - (weekDay));  //Get the month day for this week's monday.
+
+		$('td', this).each(function ()
 		{
-			id = meal + "_" + date.getDate() +"/"+date.getMonth() +  "/" + date.getYear()
+			id = label + "_" + (date.getMonth() + 1) +"/"+date.getDate() +  "/" + date.getFullYear();
 			$(this).attr('id', id);
-			
+
 			date.setDate(date.getDate() +1);
 		})
 
