@@ -122,6 +122,13 @@ function getRecipeByIdResult(recipe)
     console.log(recipe);
 }
 
+function fillRecentRecipes() {
+    var index = recipes_ref.value("once").then(function(snapshot) {
+        console.log("filling recents");
+        console.log(snapshot.val());
+    })
+}
+
 jQuery(document).on("click", "#add_ingredient_button", function(){
     var ingredient_number = jQuery("#ingredients_div").children().length + 1;
     var html = "<form class='form-inline'>";
@@ -205,6 +212,7 @@ jQuery(document).ready(function(){
         })
     }
 });
+
 
 
 
