@@ -5,6 +5,16 @@ $(function(){
     }
 });
 
+jQuery(document).ready(function(){
+    getGroceries(buildGroceryList);
+});
+
+function buildGroceryList(grocery_list, planned_recipes)
+{
+    console.log(grocery_list);
+    console.log(planned_recipes);
+}
+
 
 /**
  * Returns an object with all groceries needed ***in the future*** (including today)
@@ -39,11 +49,13 @@ function getGroceries(callback)
                 }
             }
             var grocery_list = {};
+            var planned_recipes = [];
             recipes_ref.once("value").then(function(snapshot){
                 recipes_objects = snapshot.val();
                 for (var recipe_id in recipes_objects) {
                     if (recipes_objects.hasOwnProperty(recipe_id)) {
                         if (planned_recipe_ids[recipe_id] != undefined) {
+                            planned_recipes.push({"id" : recipe_id, "recipe" : recipes_objects[recipe_id]});
                             for (var ingredient_index in recipes_objects[recipe_id]['ingredients']) {
                                 if (recipes_objects[recipe_id]['ingredients'].hasOwnProperty(ingredient_index)) {
                                     var ingredient_name = recipes_objects[recipe_id]['ingredients'][ingredient_index]['name'];
@@ -60,15 +72,17 @@ function getGroceries(callback)
             });
             if (callback == undefined) {
                 callback = "getGroceriesResult";
-                window[callback](grocery_list);
+                window[callback](grocery_list, planned_recipes);
             } else {
-                callback(grocery_list);
+                callback(grocery_list, planned_recipes);
             }
         })
     }
 }
 
-function getGroceriesResult(week_plan)
+function getGroceriesResult(grocery_list, planned_recipes)
 {
-    console.log(week_plan);
+    console.log(grocery_list);
+    console.log(planned_recipes);
 }
+
