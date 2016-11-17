@@ -1,0 +1,49 @@
+#plangredient_header {
+    font-family: 'Syncopate', sans-serif;
+    margin-top: 0px;
+    padding-left: 15px;
+    font-size: 40px;
+    color: white;
+}
+#plangredient_leaf {
+    width: 40px;
+    height: 40px;
+}
+#plangredient_my_account_link {
+    padding-right: 15px;
+    padding-top: 10px;
+    color: white;
+}
+.nav{
+    font-family: 'Syncopate', sans-serif;
+    font-weight: bolder;
+}
+
+#plangredient_nav_tabs {
+    padding-left: 40px;
+    font-size: 30px;
+    text-align: center;
+}
+
+#plangredient_nav_tabs > li {
+    width: 32%;
+    margin-left: 1px;
+    margin-rigth: 1px;
+}
+
+.active {
+    font-weight: bolder;
+}
+#calendar_tab {
+    background-color: #C8E6C9;
+}
+#grocery_list_tab {
+    background-color: #C8E6C9;
+}
+#recipes_tab {
+    background-color: #C8E6C9;
+}
+.heading {
+    background-color: #4CC151;
+}
+

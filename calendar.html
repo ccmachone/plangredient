@@ -16,51 +16,21 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="calendar.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet">
+    <link href="common.css" rel="stylesheet">
     <link href="calendarTableStyle.css" rel="stylesheet">
     <link href="calendar.css" rel="styleSheet">
-    <style>
-        .carousel-inner > .item > img,
-        .carousel-inner > .item > a > img {
-            width: 70%;
-            margin: auto;
-        }
-        .carousel-caption {
-            color: black !important;
-        }
-
-        #plangredient {
-            font-family: 'Syncopate', sans-serif;
-        }
-        .nav{
-            font-family: 'Syncopate', sans-serif;
-        }
-        .active {
-            font-weight: bolder;
-        }
-        #grocery_list_tab {
-            background-color: #C8E6C9;
-        }
-        #recipes_tab {
-            background-color: #C8E6C9;
-        }
-        .heading {
-            background-color: #4CC151;
-        }
-        
-
-    </style>
 </head>
 <body class="full">
-	<div class="container theme-showcase" role="main">
+	<div role="main">
         <div class="heading">
-		<h2 id="plangredient">PlanGredient</h2>
-		<a href="account.html" style="float:right;">My Account</a>
-		<ul class="nav nav-tabs">
-			<li id="calendar_tab" class="active"><a href="calendar.html">Calendar</a></li>
-			<li id="grocery_list_tab"><a href="grocery_list.html">Grocery List</a></li>
-			<li id="recipes_tab"><a href="recipes_list.html">Recipes</a></li>
-		</ul>
-    </div>
+            <span id="plangredient_header">PlanGredient <img id="plangredient_leaf" src="leaf.png" /></span>
+            <a id="plangredient_my_account_link" href="account.html" style="float:right;">My Account</a>
+            <ul id="plangredient_nav_tabs" class="nav nav-tabs">
+                <li id="calendar_tab" class="active"><a href="calendar.html">Calendar</a></li>
+                <li id="grocery_list_tab"><a href="grocery_list.html">Grocery List</a></li>
+                <li id="recipes_tab"><a href="recipes_list.html">Recipes</a></li>
+            </ul>
+        </div>
 	</div>
 	<div class="datagrid">
 		<table id = "calendarWeek1">
