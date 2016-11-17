@@ -8,14 +8,35 @@ $(function(){
 
 
 jQuery(document).ready(function(){
+	$(".check_del").hide();
     getGroceries(buildGroceryList);
+    /*
     $("#print_list").click(function() {
-    	print(".grocery_list");
+    	console.log("#grocery_list".innerHTML);
+        printDiv();
+    	//print($(this).parent(".grocery_list"));
     });
+*/
     $(".delete").click(function() {
-    	console.log ("li");
+    	$(this).siblings(".check_del").show();
     });
+    $(".yes").click(function() {
+        console.log(".check_del".parent);
+        $(this).parent(".check_del").parent().hide();
+    });
+
 });
+
+
+
+function printDiv() {    
+    $("#print_list").hide();
+    var printContents = document.getElementById('grocery_list').innerHTML;
+    var originalContents = document.body.innerHTML;
+     document.body.innerHTML = printContents;
+     window.print();
+     document.body.innerHTML = originalContents;
+    }
 
 function buildGroceryList(grocery_list, planned_recipes)
 {

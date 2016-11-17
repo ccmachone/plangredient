@@ -122,6 +122,13 @@ function getRecipeByIdResult(recipe)
     console.log(recipe);
 }
 
+function fillRecentRecipes() {
+    var index = recipes_ref.value("once").then(function(snapshot) {
+        console.log("filling recents");
+        console.log(snapshot.val());
+    })
+}
+
 jQuery(document).on("click", "#add_ingredient_button", function(){
     var ingredient_number = jQuery("#ingredients_div").children().length + 1;
     var html = "<form class='form-inline'>";
@@ -226,9 +233,27 @@ jQuery(document).ready(function(){
         console.log("Load recipe " + jQuery.urlParam("recipe_id"));
         getRecipeById(jQuery.urlParam("recipe_id"), function(recipe){
             console.log(recipe);
+            jQuery("#recipe_name").html(recipe['recipe']['name']);
+            jQuery("#prep_time").html('Prep Time: '+recipe['recipe']['prep_time']+' minutes');
+
+            var html="<div>Ingredients</div>";
+            for(var i in recipe['recipe']['ingredients'])
+            {
+                html+="<li>"+recipe['recipe']['ingredients'][i]['quantity'];
+                html+=" "+recipe['recipe']['ingredients'][i]['unit'];
+                html+=" "+recipe['recipe']['ingredients'][i]['name'];
+                html+="</li>";
+            }
+
+            jQuery("#recipe_items").html(html);
+
+            jQuery("#ingredients").html(recipe['recipe']['ingredients']);
+            jQuery("#directions").html(recipe['recipe']['directions']);
+
         })
     }
 });
+
 
 
 

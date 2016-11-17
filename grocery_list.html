@@ -53,6 +53,9 @@
         .heading {
             background-color: #4CC151;
         }
+        .check_del {
+            display: inline-block;
+        }
         
     </style>
 </head>
@@ -68,38 +71,62 @@
         <li id="recipes_tab"><a href="recipes_list.html">Recipes</a></li>
     </ul>
 </div>
-        <div class="grocery_list">
+        <div id="grocery_list">
         <h4>Groceries</h4>
-        <div class="btn btn-success" id="print_list" onClick="p_list()">Print</div>
+        <div class="btn btn-success" id="print_list" onClick="printDiv()">Print</div>
         <ul>
             <li>Apples
                 <select class="num_menu"></select>
                 <button class="delete">x</button>
+                <div class="check_del">Remove?
+                    <button class="yes">Yes</button>
+                    <button class="cancel">Cancel</button>
+                </div>
             </li>
             <br>
             <li>Bacon
                 <select class="num_menu"></select>
                 <button class="delete">x</button>
+                <div class="check_del">Remove?
+                    <button class="yes">Yes</button>
+                    <button class="cancel">Cancel</button>
+                </div>
             </li>
             <br>
             <li>Beef
                 <select class="num_menu"></select>
                 <button class="delete">x</button>
+                <div class="check_del">Remove?
+                    <button class="yes">Yes</button>
+                    <button class="cancel">Cancel</button>
+                </div>
             </li>
             <br>
             <li>Broccoli
                 <select class="num_menu"></select>
                 <button class="delete">x</button>
+                <div class="check_del">Remove?
+                    <button class="yes">Yes</button>
+                    <button class="cancel">Cancel</button>
+                </div>
             </li>
             <br>
             <li>Chicken
                 <select class="num_menu"></select>
                 <button class="delete">x</button>
+                <div class="check_del">Remove?
+                    <button class="yes">Yes</button>
+                    <button class="cancel">Cancel</button>
+                </div>
             </li>
             <br>
             <li>Flour
                 <select class="num_menu"></select>
                 <button class="delete">x</button>
+                <div class="check_del">Remove?
+                    <button class="yes">Yes</button>
+                    <button class="cancel">Cancel</button>
+                </div>
             </li>
         </ul>
     </div>

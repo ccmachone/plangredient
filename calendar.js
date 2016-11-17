@@ -1,8 +1,10 @@
 
+var weekPlan = {};
+
 $( document ).ready(function()
 {
-	setCalendarDateIds("calendarWeek1",1);
-	setCalendarDateIds("calendarWeek2",2);
+	getPlanForWeek(1);
+	
 });
 
 /*
@@ -21,26 +23,20 @@ function setCalendarDateIds(tableId, weekNumber)
 
 		switch(rowCounter)
 		{
-            case 2:
-                label = "breakfast-title";
-                break;
+		
 			case 3:
-                label = "breakfast";
+				label = "breakfast";
 				break;
-            case 4:
-                label = "lunch-title";
-                break;
+			
 			case 5:
-                label = "lunch";
+				label = "lunch";
 				break;
-            case 6:
-                label = "dinner-title";
-                break;
+			
 			case 7:
-                label = "dinner";
+				label = "dinner";
 				break;
 			default:
-                label = "";
+				label = "";
 				break;
 		}
 
@@ -53,18 +49,40 @@ function setCalendarDateIds(tableId, weekNumber)
 
 		var weekDay = date.getDay();
 		date.setDate(date.getDate() - (weekDay));  //Get the month day for this week's monday.
+		var mealTitle = "";
+		var mealDiv = "";
+		var mealKey = "";
+		var mealTime = "";
 
 		$('td', this).each(function ()
 		{
+			var $this = $(this);
 			id = label + "_" + (date.getMonth() + 1) +"/"+date.getDate() +  "/" + date.getFullYear();
-			$(this).attr('id', id);
-
+			$this.attr('id', id);
+			if(label !== "")
+			{
+				if(!(weekPlan[date.getDay()]== undefined) && !(weekPlan[date.getDay()][label]== undefined))
+				{
+					mealKey = weekPlan[date.getDay()][label][0];
+					mealTime = weekPlan[date.getDay()].time;
+					mealTitle = recipes_ref.child(mealKey).once("value").then(function(snapShot)
+					{
+						mealTitle = snapShot.val().name;
+				
+						mealDiv = "<div>"+mealTitle+"<span onClick = 'unPlanRecipeForMealOnDate("+mealKey+","+label+","+mealTime+")'>   - </span></div><div> + </div>";
+						var test = $this.html();
+						$this.html(mealDiv);
+						console.log("after: "+$(this).html());
+					}); 
+				}
+			}
+			
+			
 			date.setDate(date.getDate() +1);
 		})
 
 	})
 }
-
 
 
 function planRecipeForMealOnDate(recipe_id, meal_enum, date, callback)
@@ -126,7 +144,8 @@ function unPlanRecipeForMealOnDate(recipe_id, meal_enum, date, callback)
     } else {
         meal_enum = [MEAL_BREAKFAST, MEAL_LUNCH, MEAL_DINNER].indexOf(meal_enum) === -1 ? MEAL_BREAKFAST : meal_enum;
         date = new Date(date);
-        planned_recipes_ref.orderByChild("email").equalTo(logged_in_user['user']['email']).once("value").then(function(snapshot) {
+        planned_recipes_ref.orderByChild("email").equalTo(logged_in_user['user']['email']).once("value").then(function(snapshot) 
+	   {
             planned_recipes_objects = snapshot.val();
             for (var key in planned_recipes_objects) {
                 if (planned_recipes_objects.hasOwnProperty(key)) {
@@ -251,6 +270,7 @@ function getPlanForWeek(week_number, callback)
                         var temp_date = new Date(planned_recipes_objects[key]['date']);
                         if (week_plan[temp_date.getDay()] == undefined) {
                             week_plan[temp_date.getDay()] = {};
+					   week_plan[temp_date.getDay()].time = planned_recipes_objects[key]['date'];
                         }
                         week_plan[temp_date.getDay()][planned_recipes_objects[key]['meal']] = planned_recipes_objects[key]['recipe_ids'];
                     }
@@ -268,5 +288,8 @@ function getPlanForWeek(week_number, callback)
 
 function getPlanForWeekResult(week_plan)
 {
+	weekPlan = week_plan;
+	setCalendarDateIds("calendarWeek1",1);
+	setCalendarDateIds("calendarWeek2",2);
     console.log(week_plan);
 }
