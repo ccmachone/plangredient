@@ -6,29 +6,17 @@ jQuery(document).ready(function(){
     } else {
         jQuery("#sign_in_or_up_div").show();
     }
-})
+});
 
 jQuery(document).on("click", "#sign_in_button", function(){
-    var email = jQuery("#email").val();
-    getUserByEmail(email, function(user){
-        if (user['id'] == undefined) {
-            jQuery.notify("Account not found. Perhaps you meant to sign up?");
-        } else {
-            if (verifyPassword(jQuery("#password").val(), user['user']['password'])) {
-                window.sessionStorage.setItem("user", JSON.stringify(user));
-                window.location.href = "recipes_list.html";
-            } else {
-                jQuery.notify("Invalid email/password!");
-            }
-        }
-    });
+    attemptToLogIn();
 });
 
 jQuery(document).on("click", "#update_button", function(){
     var user = getLoggedInUser();
     var old_password = jQuery("#old_password").val();
     var new_password = jQuery("#new_password").val();
-    if (verifyPassword(old_password, user['user']['password'])) {
+    if (validatePasswordFormat(new_password) && verifyPassword(old_password, user['user']['password'])) {
         user['user']['password'] = makeHash(new_password);
         updateUser(user, function(){
             window.sessionStorage.setItem("user", JSON.stringify(user));
@@ -43,23 +31,69 @@ jQuery(document).on("click", "#update_button", function(){
 
 jQuery(document).on("click", "#sign_up_button", function(){
     var email = jQuery("#email").val();
-    var password = makeHash(jQuery("#password").val());
-    getUserByEmail(email, function(user){
-        if (user['id'] != undefined) {
-            jQuery.notify("Account already exists!");
-        } else {
-            addUser(email, password, function(user){
-                window.sessionStorage.setItem("user", JSON.stringify(user));
-                window.location.href = "recipes_list.html";
-            })
-        }
-    });
+    var password = jQuery("#password").val();
+    if (validatePasswordFormat(password)) {
+        password = makeHash(password);
+        getUserByEmail(email, function (user) {
+            if (user['id'] != undefined) {
+                jQuery.notify("Account already exists!");
+            } else {
+                addUser(email, password, function (user) {
+                    window.sessionStorage.setItem("user", JSON.stringify(user));
+                    window.location.href = "recipes_list.html";
+                })
+            }
+        });
+    }
 });
 
 jQuery(document).on("click", "#sign_out_button", function(){
     window.sessionStorage.removeItem("user");
     window.location.href = "index.html";
 });
+
+jQuery(document).on("keydown", "#password", function(e){
+    if (e.keyCode == 13) {
+        attemptToLogIn();
+    }
+});
+
+function attemptToLogIn()
+{
+    var email = jQuery("#email").val();
+    if (validateEmailFormat(email)) {
+        getUserByEmail(email, function (user) {
+            if (user['id'] == undefined) {
+                jQuery.notify("Account not found. Perhaps you meant to sign up?");
+            } else {
+                if (verifyPassword(jQuery("#password").val(), user['user']['password'])) {
+                    window.sessionStorage.setItem("user", JSON.stringify(user));
+                    window.location.href = "recipes_list.html";
+                } else {
+                    jQuery.notify("Invalid email/password!");
+                }
+            }
+        });
+    }
+}
+
+function validateEmailFormat(email)
+{
+    if (email.indexOf("@") == -1 || email.length < 4 || email.indexOf(".") == -1) {
+        jQuery.notify("Invalid email address");
+        return false;
+    }
+    return true;
+}
+
+function validatePasswordFormat(password)
+{
+    if (new_password.length < 6) {
+        jQuery.notify("Password is too sort");
+        return false;
+    }
+    return true;
+}
 
 function addUser(email, password, callback)
 {

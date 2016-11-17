@@ -148,16 +148,40 @@ jQuery(document).on("click", "#add_tag_button", function(){
 
 jQuery(document).on("click", "#add_recipe_button", function(){
     var recipe = {};
-    recipe['name'] = jQuery("#recipe_name").val();
-    recipe['prep_time'] = jQuery("#prep_time").val();
-    recipe['directions'] = jQuery("#directions").val();
+    recipe['name'] = jQuery.trim(jQuery("#recipe_name").val());
+    if (recipe['name'].length < 1) {
+        jQuery.notify("Invalid recipe name");
+        return false;
+    }
+    recipe['prep_time'] = jQuery.trim(jQuery("#prep_time").val());
+    if (!jQuery.isNumeric(recipe['prep_time']) || recipe['prep_time'].length < 1 || recipe['prep_time'] == 0) {
+        jQuery.notify("Invalid recipe prep time");
+        return false;
+    }
+    recipe['directions'] = jQuery.trim(jQuery("#directions").val());
+    if (recipe['directions'].length < 1) {
+        jQuery.notify("Invalid directions");
+        return false;
+    }
     recipe['ingredients'] = [];
     var ingredient_number = 1;
     while (jQuery("[id^=ingredient_" + ingredient_number + "_").length > 0) {
         var ingredient = {};
-        ingredient['name'] = jQuery("#ingredient_" + ingredient_number + "_name").val();
-        ingredient['quantity'] = jQuery("#ingredient_" + ingredient_number + "_quantity").val();
-        ingredient['unit'] = jQuery("#ingredient_" + ingredient_number + "_unit").val();
+        ingredient['name'] = jQuery.trim(jQuery("#ingredient_" + ingredient_number + "_name").val());
+        if (ingredient['name'].length < 1) {
+            jQuery.notify("Invalid ingredient name: " + ingredient['name']);
+            return false;
+        }
+        ingredient['quantity'] = jQuery.trim(jQuery("#ingredient_" + ingredient_number + "_quantity").val());
+        if (!jQuery.isNumeric(ingredient['quantity']) || ingredient['quantity'].length < 1) {
+            jQuery.notify("Invalid ingredient quantity: " + ingredient['quantity']);
+            return false;
+        }
+        ingredient['unit'] = jQuery.trim(jQuery("#ingredient_" + ingredient_number + "_unit").val());
+        if (ingredient['unit'].length < 1) {
+            jQuery.notify("Invalid ingredient unit: " + ingredient['unit']);
+            return false;
+        }
         recipe['ingredients'].push(ingredient);
         ingredient_number++;
     }
