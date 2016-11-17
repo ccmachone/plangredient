@@ -216,8 +216,15 @@ recipes_ref.on("child_added", function(recipe){
     recipe_object = recipe.val();
     var html = "<li id='persisted_recipe_" + recipe.key + "'>" + recipe_object['name'] + "</li>";
     jQuery("#existing_recipes").append(html);
+    var num_recipes_grid_children = jQuery("#recipes_grid").children().length;
+    html = "";
+    var add_closing_html = false;
+    if (num_recipes_grid_children == 0 || jQuery(jQuery(jQuery("#recipes_grid").children()[num_recipes_grid_children - 1]).children()[0]).children().length == 4) {
+        add_closing_html = true;
+        html += "<div class='row'><div class='col-md-12'><div class='thumbnails'>"
+    }
 
-    html = "<div class='col-md-3 clickableRecipe'><div style='cursor: pointer;' onclick='window.location.href=\"recipe_display.html?recipe_id=" + recipe.key + "\"'><img class='recipe_image img-rounded' src='";
+    html += "<div class='col-md-3 clickableRecipe'><div style='cursor: pointer;' onclick='window.location.href=\"recipe_display.html?recipe_id=" + recipe.key + "\"'><img class='recipe_image img-rounded' src='";
     if (recipe_object['image'] != "" && recipe_object['image'] != undefined) {
         html += recipe_object['image'];
     } else {
@@ -225,7 +232,12 @@ recipes_ref.on("child_added", function(recipe){
     }
     html += "' />";
     html += "<div class='caption'>" + recipe_object['name'] + "</div></div>";
-    jQuery("#recipes_grid").append(html);
+    if (add_closing_html) {
+        html += "</div></div></div>";
+        jQuery("#recipes_grid").append(html);
+    } else {
+        jQuery(jQuery(jQuery("#recipes_grid").children()[num_recipes_grid_children - 1]).children()[0]).append(html);
+    }
 });
 
 jQuery(document).ready(function(){
