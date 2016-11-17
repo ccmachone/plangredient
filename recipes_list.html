@@ -13,23 +13,17 @@
     <link href="common.css" rel="stylesheet">
     <style>
 
-	#searchNav {
-    		margin-top:70px;
-    		margin-right:25px;
-    		float:left;
-    		width:22%;
-    		height:600px;
-    		background-color:#eff5f5;
+	    #searchNav {
+    		height:327px;
+            padding-top: 10px;
+            padding-left: 30px;
     	}
     	.searchButtons {
-    		margin-right:15px;
+    		margin-right:30px;
+            float: right;
 
     	}
-    	#recentsNav {
-    		float:left;
-    	}
     	#RecentRecipes {
-    		margin-top:10px;
     		font-size:25pt;
     	}
     	.image_container {
@@ -42,13 +36,28 @@
     		box-sizing:order-box;
     		width: 250px;
     		height:250px;
-   	 }
+   	    }
         .recents {
             overflow:hidden;
         }
+        .searchInputs {
+            width: 90%;
+        }
+        .searchCheckboxLabels {
+            font-size: 20px;
+            font-weight: lighter;
+        }
         .recipe_image {
-            width: 80px;
+            width: 180px;
             height: auto;
+        }
+        .clickableRecipe {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .clickableRecipe:hover {
+            opacity: .75;
         }
         .caption {
             text-align: center;
@@ -74,22 +83,41 @@
             </ul>
         </div>
     </div>
-    <div class="container theme-showcase" role="main">
-        <div class="row" id="searchNav">
-        	<div class="search">
-        		<p id="searchLabel">Search:</p>
-        		<input type="checkbox" name="allRecipes" value="All">All Recipes<br>
-        		<input type="checkbox" name="myRecipes" value="My">Just My Recipes<br>
-        		<button id="searchButton" class="searchButtons">Search</button>
-        		<input type="text" name="searchBar" value="Search">
-        		<button id="filterButton" class="searchButtons">Filter By</button>
-        		<input type="text" name="filterBar">
-
-        	</div>
+    <div class="row">
+        <div class="col-md-3" style="background-color: #C8E6C9;">
+            <div id="searchNav">
+                <div class="search">
+                    <div class="row">
+                        <input type="checkbox" name="allRecipes" id="allRecipes" value="All"/>
+                        <label class="searchCheckboxLabels" for="allRecipes">Search All Recipes</label>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <input type="checkbox" name="myRecipes" id="myRecipes" value="My"/>
+                        <label class="searchCheckboxLabels" for="myRecipes">Search My Recipes</label>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <input type="text" class="searchInputs" name="searchBar" placeholder="Search Recipes">
+                    </div>
+                    <br />
+                    <div class="row">
+                        <button id="searchButton" class="btn btn-info searchButtons" type="button">Search</button>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <input type="text" class="searchInputs" name="filterBar" placeholder="Add Filters">
+                    </div>
+                    <br />
+                    <div class="row">
+                        <button id="filterButton" class="btn btn-info searchButtons" type="button">Add</button>
+                    </div>
+                </div>
+            </div>
         </div>
-
-		<!-- ADDING JAVASCRIPT TO MAKE INTERACTIVE: When the user clicks the arrow to page left of right for more recent images, each image div should be populated with the next spot in the array of images mod the size of the array...-->
-		<div class="row" id="recentsNav">
+        <div class="col-md-9" style="border-left: 1px solid black;">
+            <!-- ADDING JAVASCRIPT TO MAKE INTERACTIVE: When the user clicks the arrow to page left of right for more recent images, each image div should be populated with the next spot in the array of images mod the size of the array...-->
+            <div id="recentsNav">
                 <div id="RecentRecipes">Recent Recipes</div>
                 <div class="image_container">
                     <img id="REC_imgONE" class="recents" src="http://www.gimmesomeoven.com/wp-content/uploads/2013/04/Strawberry-and-Avocado-Spinach-Salad-4.jpg">
@@ -100,21 +128,18 @@
                 <div class="image_container">
                     <img id="REC_imgTHREE" class="recents" src="http://recipetreasure.com/wp-content/uploads/2014/02/flatbread-margherita-pizza-recipe-treasure-3.jpg">
                 </div>
-        </div>
-
-
-	<div class="row">
-            <div class="col-md-4">
-                <div class="row">
-                    Search etc...
-                </div>
-                <br />
-                <div class="row">
-                    <button class="btn btn-success" type="button" onclick="window.location.href='recipes_add.html'">Add Recipe</button>
-                </div>
             </div>
-            <div class="col-md-8" style="border-left:1px solid black;">
-                <div id="recipes_grid" class="thumbnails"></div>
+        </div>
+    </div>
+    <div class="row" style="border-top: 1px solid black">
+        <div class="col-md-3" style="background-color: #C8E6C9; height: 100%;">
+            <button class="btn btn-info" type="button" onclick="window.location.href='recipes_add.html'" style="margin-left:100px; margin-top:25px;">Add Recipe</button>
+        </div>
+        <div class="col-md-9" style="border-left: 1px solid black;">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="recipes_grid" class="thumbnails"></div>
+                </div>
             </div>
         </div>
     </div>
