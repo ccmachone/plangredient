@@ -8,6 +8,7 @@
 
     <script src="firebase_setup.js"></script>
     <script src="common.js"></script>
+    <script src="meal_search.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet">
     <link href="common.css" rel="stylesheet">
@@ -63,37 +64,42 @@
     </div>
     <div style="width:98%;">
         <div class="row">
-            <div class="col-md-3" style="background-color: #C8E6C9;">
-                <div id="searchNav">
-                    <div class="search">
-                        <div class="row">
-                            <input type="checkbox" name="allRecipes" id="allRecipes" value="All"/>
-                            <label class="searchCheckboxLabels" for="allRecipes">Search All Recipes</label>
-                        </div>
-                        <br />
-                        <div class="row">
-                            <input type="checkbox" name="myRecipes" id="myRecipes" value="My"/>
-                            <label class="searchCheckboxLabels" for="myRecipes">Search My Recipes</label>
-                        </div>
-                        <br />
-                        <div class="row">
-                            <input type="text" class="searchInputs" name="searchBar" placeholder="Search Recipes">
-                        </div>
-                        <br />
-                        <div class="row">
-                            <button id="searchButton" class="btn btn-info searchButtons" type="button">Search</button>
-                        </div>
-                        <br />
-                        <div class="row">
-                            <input type="text" class="searchInputs" name="filterBar" placeholder="Add Filters">
-                        </div>
-                        <br />
-                        <div class="row">
-                            <button id="filterButton" class="btn btn-info searchButtons" type="button">Add</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+		<div class="col-md-3" style="background-color: #C8E6C9;">
+			<div id="searchNav">
+				<div class="search">
+					<div class="row">
+						<input type="checkbox" name="allRecipes" id="allRecipes" value="All"/>
+						<label class="searchCheckboxLabels" for="allRecipes">Search All Recipes</label>
+					</div>
+					<br />
+					<div class="row">
+						<input type="checkbox" name="myRecipes" id="myRecipes" value="My"/>
+						<label class="searchCheckboxLabels" for="myRecipes">Search My Recipes</label>
+					</div>
+					<br />
+					<div class="row">
+						<input type="text" class="searchInputs" id = "searchBar" name="searchBar" placeholder="Search Recipes">
+					</div>
+					<br />
+					<div class="row">
+						<button id="searchButton" class="btn btn-info searchButtons" type="button">Search</button>
+					</div>
+					<br />
+					<div class="row">
+						<input type="text" class="searchInputs" id = "filterBar" name="filterBar" placeholder="Add Filters">
+					</div>
+					<br />
+					<div class="row">
+						<button id="filterButton" class="btn btn-info searchButtons" type="button">Add</button>
+					</div>
+					
+					<div class = "row">
+						<div id="selectedFilters"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
             <div class="col-md-9" style="border-left: 1px solid black;">
                 <!-- ADDING JAVASCRIPT TO MAKE INTERACTIVE: When the user clicks the arrow to page left of right for more recent images, each image div should be populated with the next spot in the array of images mod the size of the array...-->
                 <div>
