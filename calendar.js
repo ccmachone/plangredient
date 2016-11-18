@@ -1,10 +1,9 @@
-
 var weekPlan = {};
 
 $( document ).ready(function()
 {
 	getPlanForWeek(1);
-
+	
 });
 
 /*
@@ -23,15 +22,15 @@ function setCalendarDateIds(tableId, weekNumber)
 
 		switch(rowCounter)
 		{
-
+		
 			case 3:
 				label = "breakfast";
 				break;
-
+			
 			case 5:
 				label = "lunch";
 				break;
-
+			
 			case 7:
 				label = "dinner";
 				break;
@@ -64,24 +63,30 @@ function setCalendarDateIds(tableId, weekNumber)
 				if(!(weekPlan[date.getDay()]== undefined) && !(weekPlan[date.getDay()][label]== undefined))
 				{
 					mealKey = weekPlan[date.getDay()][label][0];
-					mealTime = weekPlan[date.getDay()].time;
+					mealTime = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate() + 1);
+					var cellId = id; 
 					mealTitle = recipes_ref.child(mealKey).once("value").then(function(snapShot)
 					{
+						
 						mealTitle = snapShot.val().name;
-
-						mealDiv = "<div>"+mealTitle+"<span onClick = 'unPlanRecipeForMealOnDate("+mealKey+","+label+","+mealTime+")'>   - </span></div><div> + </div>";
-						var test = $this.html();
+						mealDiv = "<div>"+mealTitle+"<div onClick = 'unplanMeal(\""+mealKey+"\",\""+label+"\",\""+mealTime+"\",\""+cellId+"\")'>   - </div></div><div> + </div>";
+						
 						$this.html(mealDiv);
-						console.log("after: "+$(this).html());
-					});
+					}); 
 				}
 			}
-
-
+			
+			
 			date.setDate(date.getDate() +1);
 		})
 
 	})
+}
+
+function unplanMeal(mealKey, meal, mealTime,cellId)
+{
+	document.getElementById(cellId).innerHTML = "<div></div>";
+	unPlanRecipeForMealOnDate(mealKey, meal, mealTime);
 }
 
 
@@ -149,6 +154,7 @@ function unPlanRecipeForMealOnDate(recipe_id, meal_enum, date, callback)
             planned_recipes_objects = snapshot.val();
             for (var key in planned_recipes_objects) {
                 if (planned_recipes_objects.hasOwnProperty(key)) {
+				 var test = date.toDateString();
                     if (planned_recipes_objects[key]['date'] == date.toDateString() && planned_recipes_objects[key]['meal'] == meal_enum && planned_recipes_objects[key]['recipe_ids'].indexOf(recipe_id) !== -1) {
                         var updated_planned_recipe = {};
                         planned_recipes_objects[key]['recipe_ids'].splice(planned_recipes_objects[key]['recipe_ids'].indexOf(recipe_id), 1);
