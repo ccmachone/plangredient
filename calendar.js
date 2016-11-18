@@ -4,6 +4,13 @@ $( document ).ready(function()
 {
 	getPlanForWeek(1);
 	
+	$('#planMealSubmit').click()
+	{
+		var date = $("#SelectedMealDate").val();
+		var mealTime = $("#SelectedMealMeal").val();
+		//recipe_id, meal_enum, date
+		
+	}
 });
 
 /*

@@ -17,6 +17,7 @@
     <script src="recipes_tab.js"></script>
     <script src="meal_search.js"></script>
     <script src="modal.js"></script>
+    <script src="calendar.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Optional theme -->
@@ -100,7 +101,7 @@
 			<div>Select which day you would like to plan for:</div >
 
             <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="Selected">Select Day
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="SelectedMealDate">Select Day
                 <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                     <li><a id="Sun" href="#">Sunday</a></li>
@@ -112,8 +113,14 @@
                     <li><a id="Sat" href="#">Saturday</a></li>
 
                 </ul>
+			 
+			<select id = "SelectedMealMeal">
+				<option>breakfast</option>
+				<option>lunch</option>
+				<option>dinner</option>
+			</select>
 
-                <button class="saveday">Plan</button>
+                <button class="saveday" id = "planMealSubmit">Plan</button>
             </div>
 		</div>
 	

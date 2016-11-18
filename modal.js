@@ -67,24 +67,24 @@ $( document ).ready(function()
 	jQuery("#Sat").html(date6);
 
 	Sun.onclick=function() {
-		jQuery("#Selected").html(date);
+		jQuery("#SelectedMealDate").html(date);
 	}
 	Mon.onclick=function() {
-		jQuery("#Selected").html(date1);
+		jQuery("#SelectedMealDate").html(date1);
 	}
 	Tues.onclick=function() {
-		jQuery("#Selected").html(date2);
+		jQuery("#SelectedMealDate").html(date2);
 	}
 	Wed.onclick=function() {
-		jQuery("#Selected").html(date3);
+		jQuery("#SelectedMealDate").html(date3);
 	}
 	Thurs.onclick=function() {
-		jQuery("#Selected").html(date4);
+		jQuery("#SelectedMealDate").html(date4);
 	}
 	Fri.onclick=function() {
-		jQuery("#Selected").html(date5);
+		jQuery("#SelectedMealDate").html(date5);
 	}
 	Sat.onclick=function() {
-		jQuery("#Selected").html(date6);
+		jQuery("#SelectedMealDate").html(date6);
 	}
 });
