@@ -15,6 +15,9 @@ jQuery(document).ready(function(){
         console.log(".check_del".parent);
         $(this).parent(".check_del").parent().hide();
     });
+    $(".cancel").click(function() {
+        $(this).parent(".check_del").hide();
+    });
 
 });
 
