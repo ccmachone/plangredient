@@ -3,3 +3,8 @@
 	display: none;
 }
 
+.col-md-3.side-bar {
+    background-color: #ebebe0;
+    border-top: 1px solid black;
+    border-right: 1px solid black; 
+}
