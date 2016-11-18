@@ -330,6 +330,7 @@ jQuery(document).ready(function(){
 
             jQuery("#recipe_items").html(html);
 
+          
             jQuery("#ingredients").html(recipe['recipe']['ingredients']);
             jQuery("#directions").html(recipe['recipe']['directions']);
 

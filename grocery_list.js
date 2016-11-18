@@ -1,12 +1,3 @@
-$(function(){
-    var $select = $(".num_menu");
-    for (i=1;i<=20;i++){
-        $select.append($('<option></option>').val(i).html(i))
-    }
-});
-
-
-
 jQuery(document).ready(function(){
 	$(".check_del").hide();
     getGroceries(buildGroceryList);
@@ -33,7 +24,7 @@ function printDiv() {
     $("#print_list").hide();
     var printContents = document.getElementById('grocery_list').innerHTML;
     var originalContents = document.body.innerHTML;
-     document.body.innerHTML = printContents;
+    document.body.innerHTML = printContents;
      window.print();
      document.body.innerHTML = originalContents;
     }
