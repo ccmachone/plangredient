@@ -240,6 +240,43 @@ recipes_ref.on("child_added", function(recipe){
     }
 });
 
+recipes_ref.once("value").then(function(snapshot){
+    recipes_objects = snapshot.val();
+    var recipes = [];
+    for (var key in recipes_objects) {
+        if (recipes_objects.hasOwnProperty(key)) {
+            recipes.push({"id" : key, "recipe" : recipes_objects[key]});
+        }
+    }
+    console.log(recipes);
+    var featured_recipes_to_display = 3;
+    var currently_displaying_featured_recipes = [];
+    while (currently_displaying_featured_recipes.length < featured_recipes_to_display && currently_displaying_featured_recipes.length < recipes.length) {
+        var random_index = getRandomInt(0, recipes.length - 1);
+        while (currently_displaying_featured_recipes.indexOf(random_index) !== -1) {
+            random_index = getRandomInt(0, recipes.length - 1);
+        }
+        var recipe = recipes[random_index];
+        console.log(recipe);
+        console.log(recipes);
+        var html = "";
+        html += "<div class='largeRecipe clickableRecipe col-md-4'><div style='cursor: pointer;' onclick='window.location.href=\"recipe_display.html?recipe_id=" + recipe['id'] + "\"'><img class='large_recipe_image img-rounded' src='";
+        if (recipe['recipe']['image'] != "" && recipe['recipe']['image'] != undefined) {
+            html += recipe['recipe']['image'];
+        } else {
+            html += "no_image.svg";
+        }
+        html += "' />";
+        html += "<div class='caption'>" + recipe['recipe']['name'] + "</div></div>";
+        jQuery("#featuredNav").append(html);
+        currently_displaying_featured_recipes.push(random_index);
+    }
+});
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 jQuery(document).ready(function(){
     if (jQuery.urlParam("recipe_id")) {
         console.log("Load recipe " + jQuery.urlParam("recipe_id"));
