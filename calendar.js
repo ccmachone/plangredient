@@ -4,7 +4,7 @@ var weekPlan = {};
 $( document ).ready(function()
 {
 	getPlanForWeek(1);
-	
+
 });
 
 /*
@@ -23,15 +23,15 @@ function setCalendarDateIds(tableId, weekNumber)
 
 		switch(rowCounter)
 		{
-		
+
 			case 3:
 				label = "breakfast";
 				break;
-			
+
 			case 5:
 				label = "lunch";
 				break;
-			
+
 			case 7:
 				label = "dinner";
 				break;
@@ -68,16 +68,16 @@ function setCalendarDateIds(tableId, weekNumber)
 					mealTitle = recipes_ref.child(mealKey).once("value").then(function(snapShot)
 					{
 						mealTitle = snapShot.val().name;
-				
+
 						mealDiv = "<div>"+mealTitle+"<span onClick = 'unPlanRecipeForMealOnDate("+mealKey+","+label+","+mealTime+")'>   - </span></div><div> + </div>";
 						var test = $this.html();
 						$this.html(mealDiv);
 						console.log("after: "+$(this).html());
-					}); 
+					});
 				}
 			}
-			
-			
+
+
 			date.setDate(date.getDate() +1);
 		})
 
@@ -99,7 +99,7 @@ function planRecipeForMealOnDate(recipe_id, meal_enum, date, callback)
             console.log(meal_enum);
             for (var key in planned_recipes_objects) {
                 if (planned_recipes_objects.hasOwnProperty(key)) {
-                    if (planned_recipes_objects[key]['date'] == date.getTime() && planned_recipes_objects[key]['meal'] == meal_enum) {
+                    if (planned_recipes_objects[key]['date'] == date.toDateString() && planned_recipes_objects[key]['meal'] == meal_enum) {
                         planned_recipes_key = key;
                         break;
                     }
@@ -111,7 +111,7 @@ function planRecipeForMealOnDate(recipe_id, meal_enum, date, callback)
                 planned_recipes_key = planned_recipes_ref.push().key;
                 var planned_recipe = {};
                 planned_recipe["email"] = logged_in_user['user']['email'];
-                planned_recipe["date"] = date.getTime();
+                planned_recipe["date"] = date.toDateString();
                 planned_recipe['meal'] = meal_enum;
                 planned_recipe['recipe_ids'] = [recipe_id];
                 updated_planned_recipe[planned_recipes_table_name + "/" + planned_recipes_key] = planned_recipe;
@@ -144,12 +144,12 @@ function unPlanRecipeForMealOnDate(recipe_id, meal_enum, date, callback)
     } else {
         meal_enum = [MEAL_BREAKFAST, MEAL_LUNCH, MEAL_DINNER].indexOf(meal_enum) === -1 ? MEAL_BREAKFAST : meal_enum;
         date = new Date(date);
-        planned_recipes_ref.orderByChild("email").equalTo(logged_in_user['user']['email']).once("value").then(function(snapshot) 
+        planned_recipes_ref.orderByChild("email").equalTo(logged_in_user['user']['email']).once("value").then(function(snapshot)
 	   {
             planned_recipes_objects = snapshot.val();
             for (var key in planned_recipes_objects) {
                 if (planned_recipes_objects.hasOwnProperty(key)) {
-                    if (planned_recipes_objects[key]['date'] == date.getTime() && planned_recipes_objects[key]['meal'] == meal_enum && planned_recipes_objects[key]['recipe_ids'].indexOf(recipe_id) !== -1) {
+                    if (planned_recipes_objects[key]['date'] == date.toDateString() && planned_recipes_objects[key]['meal'] == meal_enum && planned_recipes_objects[key]['recipe_ids'].indexOf(recipe_id) !== -1) {
                         var updated_planned_recipe = {};
                         planned_recipes_objects[key]['recipe_ids'].splice(planned_recipes_objects[key]['recipe_ids'].indexOf(recipe_id), 1);
                         updated_planned_recipe[planned_recipes_table_name + "/" + key + "/recipe_ids"] = planned_recipes_objects[key]['recipe_ids'];
@@ -184,7 +184,7 @@ function unPlanAllRecipesForMealOnDate(meal_enum, date, callback)
             planned_recipes_objects = snapshot.val();
             for (var key in planned_recipes_objects) {
                 if (planned_recipes_objects.hasOwnProperty(key)) {
-                    if (planned_recipes_objects[key]['date'] == date.getTime() && planned_recipes_objects[key]['meal'] == meal_enum) {
+                    if (planned_recipes_objects[key]['date'] == date.toDateString() && planned_recipes_objects[key]['meal'] == meal_enum) {
                         var updated_planned_recipe = {};
                         updated_planned_recipe[planned_recipes_table_name + "/" + key] = null;
                         result = firebase.database().ref().update(updated_planned_recipe);
@@ -217,7 +217,7 @@ function unPlanAllRecipesOnDate(date, callback)
             planned_recipes_objects = snapshot.val();
             for (var key in planned_recipes_objects) {
                 if (planned_recipes_objects.hasOwnProperty(key)) {
-                    if (planned_recipes_objects[key]['date'] == date.getTime()) {
+                    if (planned_recipes_objects[key]['date'] == date.toDateString()) {
                         var updated_planned_recipe = {};
                         updated_planned_recipe[planned_recipes_table_name + "/" + key] = null;
                         result = firebase.database().ref().update(updated_planned_recipe);
@@ -249,11 +249,13 @@ function getPlanForWeek(week_number, callback)
         var week_start_day = new Date();
         if (week_number == 1) {
             while (week_start_day.getDay() != 0) {
-                week_start_day = new Date(week_start_day.getTime() - one_day_in_milliseconds);
+                // week_start_day = new Date(week_start_day.getTime() - one_day_in_milliseconds);
+                week_start_day.setTime(week_start_day.getTime() - one_day_in_milliseconds);
             }
         } else {
             do {
-                week_start_day = new Date(week_start_day.getTime() + one_day_in_milliseconds);
+                // week_start_day = new Date(week_start_day.getTime() + one_day_in_milliseconds);
+                week_start_day.setTime(week_start_day.getTime() + one_day_in_milliseconds);
             } while (week_start_day.getDay() != 0);
         }
         week_start_day.setHours(0);
@@ -266,7 +268,8 @@ function getPlanForWeek(week_number, callback)
             var week_plan = {};
             for (var key in planned_recipes_objects) {
                 if (planned_recipes_objects.hasOwnProperty(key)) {
-                    if (planned_recipes_objects[key]['date'] >= week_start_day.getTime() && planned_recipes_objects[key]['date'] < week_start_day.getTime() + one_day_in_milliseconds * 7) {
+                    var planned_recipe_date = new Date(planned_recipes_objects[key]['date']);
+                    if (planned_recipe_date.getTime() >= week_start_day.getTime() && planned_recipe_date.getTime() < week_start_day.getTime() + one_day_in_milliseconds * 7) {
                         var temp_date = new Date(planned_recipes_objects[key]['date']);
                         if (week_plan[temp_date.getDay()] == undefined) {
                             week_plan[temp_date.getDay()] = {};

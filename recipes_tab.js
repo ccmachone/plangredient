@@ -206,7 +206,7 @@ jQuery(document).on("change", "#recipe_image_upload", function(){
     file_reader.readAsDataURL(jQuery("#recipe_image_upload")[0].files[0]);
 });
 
-
+//Build the grid of all recipes
 recipes_ref.on("child_added", function(recipe){
     recipe_object = recipe.val();
     var html = "<li id='persisted_recipe_" + recipe.key + "'>" + recipe_object['name'] + "</li>";
@@ -235,6 +235,7 @@ recipes_ref.on("child_added", function(recipe){
     }
 });
 
+//Build the bar of featured recipes
 recipes_ref.once("value").then(function(snapshot){
     recipes_objects = snapshot.val();
     var recipes = [];
