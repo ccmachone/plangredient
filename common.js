@@ -59,6 +59,10 @@ var MEAL_BREAKFAST = "breakfast";
 var MEAL_LUNCH = "lunch";
 var MEAL_DINNER = "dinner";
 
+jQuery(document).on("click", "#plangredient_header", function(){
+    window.location.href = "index.html";
+});
+
 // {
 //   "users" : [
 //       "email",
