@@ -1,11 +1,5 @@
 
 <html>
-<style>
-.col-md-3.side-bar {
-    background-color: #ebebe0;
-    border-top: 1px solid black;
-}
-</style>
 <head>
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -42,10 +36,9 @@
 
     <div style="width:98%;">
         <div class="row">
-            <div class="col-md-3 side-bar">
+            <div class="col-md-3" style="background-color: #C8E6C9;">
                 <div id="searchNav">
                     <div class="search">
-                    <!-- Use these checkboxes later
                         <div class="row">
                             <input type="checkbox" name="allRecipes" id="allRecipes" value="All"/>
                             <label class="searchCheckboxLabels" for="allRecipes">Search All Recipes</label>
@@ -55,7 +48,6 @@
                             <input type="checkbox" name="myRecipes" id="myRecipes" value="My"/>
                             <label class="searchCheckboxLabels" for="myRecipes">Search My Recipes</label>
                         </div>
-                        -->
                         <br />
                         <div class="row">
                             <input type="text" class="searchInputs" id = "searchBar" name="searchBar" placeholder="Search Recipes">
@@ -65,7 +57,6 @@
                             <button id="searchButton" class="btn btn-info searchButtons" type="button">Search</button>
                         </div>
                         <br />
-                        <!-- Add filter functionality later
                         <div class="row">
                             <input type="text" class="searchInputs" id = "filterBar" name="filterBar" placeholder="Add Filters">
                         </div>
@@ -77,7 +68,6 @@
                         <div class = "row">
                             <div id="selectedFilters"></div>
                         </div>
-                        -->
                     </div>
                 </div>
             </div>
@@ -97,23 +87,6 @@
 		<div class="modal-content">
 			<span class="close">X</span>
 			<div>Select which day you would like to plan for:</div >
-
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="Selected">Select Day
-                <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li><a id="Sun" href="#">Sunday</a></li>
-                    <li><a id="Mon" href="#">Monday</a></li>
-                    <li><a id="Tues" href="#">Tuesday</a></li>
-                    <li><a id="Wed" href="#">Wednesday</a></li>
-                    <li><a id="Thurs" href="#">Thursday</a></li>
-                    <li><a id="Fri" href="#">Friday</a></li>
-                    <li><a id="Sat" href="#">Saturday</a></li>
-
-                </ul>
-
-                <button class="saveday">Plan</button>
-            </div>
 		</div>
 	
 		

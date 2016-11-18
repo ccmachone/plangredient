@@ -47,5 +47,29 @@ function removeFilter(filter)
 
 function recipesSearch(searchTerm)
 {
-	//planned_recipes_ref.orderByChild("email").equalTo(logged_in_user['user']['email']).once("value").then(function(snapshot) {
+	recipes_ref.orderByChild("name").equalTo(searchTerm).once("value").then(function(snapshot) 
+	{
+		var queryResults = snapshot.val(); 
+		var finalResults = {};
+		var size = currentSelectedFilters.length;
+		
+		if(size === 0)
+		{
+			finalResults = queryResults;
+		}
+		else
+		{
+			for(var i = 0; i < size; i++)
+			{
+				
+			/*	if(currentSelectedFilters[i] === )
+				{
+					finalResults[i] = 
+				} */
+			}
+		}
+		
+		//PUt in recipes_grid
+
+	});
 }
