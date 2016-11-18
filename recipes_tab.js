@@ -209,7 +209,35 @@ jQuery(document).on("change", "#recipe_image_upload", function(){
 //Build the grid of all recipes
 recipes_ref.on("child_added", function(recipe){
     recipe_object = recipe.val();
-    var html = "<li id='persisted_recipe_" + recipe.key + "'>" + recipe_object['name'] + "</li>";
+    addRecipeToDisplayGrid(recipe.key, recipe_object);
+});
+
+//Example function - delete if needed
+recipes_ref.orderByChild("name").equalTo("Oreos").once("value").then(function(snapshot){
+    recipes = snapshot.val();
+    var recipes_list = [];
+    for (var key in recipes) {
+        if (recipes.hasOwnProperty(key)) {
+            recipes_list.push({"id" : key, "recipe" : recipes[key]});
+        }
+    }
+    populateDisplayGridWithRecipes(recipes_list);
+    console.log(recipes_list);
+});
+
+function populateDisplayGridWithRecipes(recipes)
+{
+    jQuery("#recipes_grid").html("");
+    for (var key in recipes) {
+        if (recipes.hasOwnProperty(key)) {
+            addRecipeToDisplayGrid(recipes[key]['id'], recipes[key]['recipe']);
+        }
+    }
+}
+
+function addRecipeToDisplayGrid(recipe_id, recipe_object)
+{
+    var html = "<li id='persisted_recipe_" + recipe_id + "'>" + recipe_object['name'] + "</li>";
     jQuery("#existing_recipes").append(html);
     var num_recipes_grid_children = jQuery("#recipes_grid").children().length;
     html = "";
@@ -219,7 +247,7 @@ recipes_ref.on("child_added", function(recipe){
         html += "<div class='row'><div class='col-md-12'><div class='thumbnails'>"
     }
 
-    html += "<div class='col-md-3 clickableRecipe'><div style='cursor: pointer;' onclick='window.location.href=\"recipe_display.html?recipe_id=" + recipe.key + "\"'><img class='recipe_image img-rounded' src='";
+    html += "<div class='col-md-3 clickableRecipe'><div style='cursor: pointer;' onclick='window.location.href=\"recipe_display.html?recipe_id=" + recipe_id + "\"'><img class='recipe_image img-rounded' src='";
     if (recipe_object['image'] != "" && recipe_object['image'] != undefined) {
         html += recipe_object['image'];
     } else {
@@ -233,7 +261,7 @@ recipes_ref.on("child_added", function(recipe){
     } else {
         jQuery(jQuery(jQuery("#recipes_grid").children()[num_recipes_grid_children - 1]).children()[0]).append(html);
     }
-});
+}
 
 //Build the bar of featured recipes
 recipes_ref.once("value").then(function(snapshot){
@@ -278,9 +306,9 @@ jQuery(document).ready(function(){
             jQuery("#recipe_name").html(recipe['recipe']['name']);
             jQuery("#prep_time").html('Prep Time: '+recipe['recipe']['prep_time']+' minutes');
 
-            
 
-            var imghtml="<img class='recipe_image img-rounded' src='";
+
+            var imghtml="<img class='large_recipe_image img-rounded' src='";
             if (recipe['recipe']['image'] != "" && recipe['recipe']['image'] != undefined) {
                 imghtml += recipe['recipe']['image'];
             } else {
@@ -302,6 +330,7 @@ jQuery(document).ready(function(){
 
             jQuery("#recipe_items").html(html);
 
+          
             jQuery("#ingredients").html(recipe['recipe']['ingredients']);
             jQuery("#directions").html(recipe['recipe']['directions']);
 
