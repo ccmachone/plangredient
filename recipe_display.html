@@ -1,5 +1,11 @@
 
 <html>
+<style>
+.col-md-3.side-bar {
+    background-color: #ebebe0;
+    border-top: 1px solid black;
+}
+</style>
 <head>
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -36,9 +42,10 @@
 
     <div style="width:98%;">
         <div class="row">
-            <div class="col-md-3" style="background-color: #C8E6C9;">
+            <div class="col-md-3 side-bar">
                 <div id="searchNav">
                     <div class="search">
+                    <!-- Use these checkboxes later
                         <div class="row">
                             <input type="checkbox" name="allRecipes" id="allRecipes" value="All"/>
                             <label class="searchCheckboxLabels" for="allRecipes">Search All Recipes</label>
@@ -48,6 +55,7 @@
                             <input type="checkbox" name="myRecipes" id="myRecipes" value="My"/>
                             <label class="searchCheckboxLabels" for="myRecipes">Search My Recipes</label>
                         </div>
+                        -->
                         <br />
                         <div class="row">
                             <input type="text" class="searchInputs" id = "searchBar" name="searchBar" placeholder="Search Recipes">
@@ -57,6 +65,7 @@
                             <button id="searchButton" class="btn btn-info searchButtons" type="button">Search</button>
                         </div>
                         <br />
+                        <!-- Add filter functionality later
                         <div class="row">
                             <input type="text" class="searchInputs" id = "filterBar" name="filterBar" placeholder="Add Filters">
                         </div>
@@ -68,6 +77,7 @@
                         <div class = "row">
                             <div id="selectedFilters"></div>
                         </div>
+                        -->
                     </div>
                 </div>
             </div>
