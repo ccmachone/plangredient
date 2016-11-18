@@ -122,13 +122,6 @@ function getRecipeByIdResult(recipe)
     console.log(recipe);
 }
 
-function fillRecentRecipes() {
-    var index = recipes_ref.value("once").then(function(snapshot) {
-        console.log("filling recents");
-        console.log(snapshot.val());
-    })
-}
-
 jQuery(document).on("click", "#add_ingredient_button", function(){
     var ingredient_number = jQuery("#ingredients_div").children().length + 1;
     var html = "<form class='form-inline'>";
@@ -198,6 +191,7 @@ jQuery(document).on("click", "#add_recipe_button", function(){
         jQuery(".recipe_input").val("");
         jQuery("#recipe_image_upload_label").html("Upload Picture");
         jQuery("#recipe_image_upload").val("");
+        jQuery("#image_preview").attr("src", "no_image.svg");
     });
 });
 
@@ -207,6 +201,7 @@ jQuery(document).on("change", "#recipe_image_upload", function(){
     file_reader = new FileReader();
     file_reader.onload = function() {
         recipe_image = file_reader.result;
+        jQuery("#image_preview").attr("src", recipe_image);
     };
     file_reader.readAsDataURL(jQuery("#recipe_image_upload")[0].files[0]);
 });
