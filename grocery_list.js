@@ -1,6 +1,6 @@
 $(function(){
     var $select = $(".num_menu");
-    for (i=0;i<=100;i++){
+    for (i=1;i<=20;i++){
         $select.append($('<option></option>').val(i).html(i))
     }
 });
