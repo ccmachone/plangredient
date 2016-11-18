@@ -47,3 +47,26 @@
     background-color: #4CC151;
 }
 
+
+/* Search Area Styling */
+#searchNav {
+    height:327px;
+    padding-top: 10px;
+    padding-left: 30px;
+}
+.searchButtons {
+    margin-right:30px;
+    float: right;
+
+}
+.searchInputs {
+    width: 90%;
+}
+.searchCheckboxLabels {
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+#featuredRecipes {
+    font-size:25pt;
+}
