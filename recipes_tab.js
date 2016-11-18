@@ -213,6 +213,7 @@ recipes_ref.on("child_added", function(recipe){
 });
 
 //Example function - delete if needed
+/*
 recipes_ref.orderByChild("name").equalTo("Oreos").once("value").then(function(snapshot){
     recipes = snapshot.val();
     var recipes_list = [];
@@ -223,7 +224,7 @@ recipes_ref.orderByChild("name").equalTo("Oreos").once("value").then(function(sn
     }
     populateDisplayGridWithRecipes(recipes_list);
     console.log(recipes_list);
-});
+});*/
 
 function populateDisplayGridWithRecipes(recipes)
 {
