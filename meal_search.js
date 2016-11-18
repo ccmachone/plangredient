@@ -52,6 +52,7 @@ function recipesSearch(searchTerm)
 		var queryResults = snapshot.val(); 
 		var finalResults = {};
 		var size = currentSelectedFilters.length;
+		var recipesPopulationList = [];
 		
 		if(size === 0)
 		{
@@ -69,7 +70,16 @@ function recipesSearch(searchTerm)
 			}
 		}
 		
-		//PUt in recipes_grid
+		size = finalResults.length;
+		for(var key in finalResults)
+		{
+			if (finalResults.hasOwnProperty(key)) 
+			{
+				recipesPopulationList.push({"id" : key, "recipe" : finalResults[key]});
+			}
+		}
+		
+		populateDisplayGridWithRecipes(recipesPopulationList);
 
 	});
 }

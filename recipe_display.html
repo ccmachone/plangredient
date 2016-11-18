@@ -1,5 +1,11 @@
 
 <html>
+<style>
+.col-md-3.side-bar {
+    background-color: #ebebe0;
+    border-top: 1px solid black;
+}
+</style>
 <head>
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -8,6 +14,7 @@
     <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
     <script src="firebase_setup.js"></script>
     <script src="common.js"></script>
+    <script src="recipes_tab.js"></script>
     <script src="meal_search.js"></script>
     <script src="modal.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -17,7 +24,7 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="recipes_tab.js"></script>
+    
     <link href="https://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet">
     <link href="common.css" rel="stylesheet" >
 </head>
@@ -36,9 +43,10 @@
 
     <div style="width:98%;">
         <div class="row">
-            <div class="col-md-3" style="background-color: #C8E6C9;">
+            <div class="col-md-3 side-bar">
                 <div id="searchNav">
                     <div class="search">
+                    <!-- Use these checkboxes later
                         <div class="row">
                             <input type="checkbox" name="allRecipes" id="allRecipes" value="All"/>
                             <label class="searchCheckboxLabels" for="allRecipes">Search All Recipes</label>
@@ -48,15 +56,17 @@
                             <input type="checkbox" name="myRecipes" id="myRecipes" value="My"/>
                             <label class="searchCheckboxLabels" for="myRecipes">Search My Recipes</label>
                         </div>
+                        -->
                         <br />
                         <div class="row">
                             <input type="text" class="searchInputs" id = "searchBar" name="searchBar" placeholder="Search Recipes">
                         </div>
                         <br />
                         <div class="row">
-                            <button id="searchButton" class="btn btn-info searchButtons" type="button">Search</button>
+                            <a href = "recipes_list.html"><button id="searchButton" class="btn btn-info searchButtons" type="button">Search</button></a>
                         </div>
                         <br />
+                        <!-- Add filter functionality later
                         <div class="row">
                             <input type="text" class="searchInputs" id = "filterBar" name="filterBar" placeholder="Add Filters">
                         </div>
@@ -68,6 +78,7 @@
                         <div class = "row">
                             <div id="selectedFilters"></div>
                         </div>
+                        -->
                     </div>
                 </div>
             </div>
@@ -87,6 +98,23 @@
 		<div class="modal-content">
 			<span class="close">X</span>
 			<div>Select which day you would like to plan for:</div >
+
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="Selected">Select Day
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a id="Sun" href="#">Sunday</a></li>
+                    <li><a id="Mon" href="#">Monday</a></li>
+                    <li><a id="Tues" href="#">Tuesday</a></li>
+                    <li><a id="Wed" href="#">Wednesday</a></li>
+                    <li><a id="Thurs" href="#">Thursday</a></li>
+                    <li><a id="Fri" href="#">Friday</a></li>
+                    <li><a id="Sat" href="#">Saturday</a></li>
+
+                </ul>
+
+                <button class="saveday">Plan</button>
+            </div>
 		</div>
 	
 		
