@@ -1,13 +1,6 @@
 jQuery(document).ready(function(){
 	$(".check_del").hide();
     getGroceries(buildGroceryList);
-    /*
-    $("#print_list").click(function() {
-    	console.log("#grocery_list".innerHTML);
-        printDiv();
-    	//print($(this).parent(".grocery_list"));
-    });
-*/
     $(".delete").click(function() {
     	$(this).siblings(".check_del").show();
     });
@@ -27,14 +20,6 @@ function printDiv() {
     $(".heading").hide();
     $("#print_list").hide();
 
-    var printContents = document.getElementById('grocery_list').innerHTML;
-    var originalContents = document.body.innerHTML;
-    
-    //print(printContents);
-    //document.body.innerHTML = printContents;
-    //var prtContent = document.getElementById('grocery_list').ingredient_name;
-    //console.log(prtContent);
-     //document.body.innerHTML = originalContents;
      print();
      $(".heading").show();
      $("#print_list").show();
