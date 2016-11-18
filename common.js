@@ -43,7 +43,7 @@ function isEquivalent(a, b) {
 
 $.urlParam = function(name){
     var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-    return results[1] || 0;
+    return results != null && results.length > 0  && results[1] ? results[1] : 0;
 }
 
 function getLoggedInUser()
