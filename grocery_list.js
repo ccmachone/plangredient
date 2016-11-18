@@ -21,12 +21,20 @@ jQuery(document).ready(function(){
 
 
 function printDiv() {    
+    $(".heading").hide();
     $("#print_list").hide();
+
     var printContents = document.getElementById('grocery_list').innerHTML;
     var originalContents = document.body.innerHTML;
-    document.body.innerHTML = printContents;
-     window.print();
-     document.body.innerHTML = originalContents;
+    
+    //print(printContents);
+    //document.body.innerHTML = printContents;
+    //var prtContent = document.getElementById('grocery_list').ingredient_name;
+    //console.log(prtContent);
+     //document.body.innerHTML = originalContents;
+     print();
+     $(".heading").show();
+     $("#print_list").show();
     }
 
 function buildGroceryList(grocery_list, planned_recipes)
