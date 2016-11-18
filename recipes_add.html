@@ -30,53 +30,55 @@
             </ul>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-7" style="margin-left: 50px;">
-            <h2>Add Your Own Recipe<!-- <small>&nbsp;&nbsp;&nbsp;<input type="checkbox" id="recipe_is_private" value="true"> Keep Private</small>--></h2>
-            <form class="form-inline">
-                <div class="form-group">
-                    <label class="sr-only" for="recipe_name">Recipe Name</label>
-                    <input type="text" class="form-control recipe_input" id="recipe_name" placeholder="Recipe Name">
-                </div>
-                <div class="form-group">
-                    <label class="sr-only" for="prep_time">Prep Time</label>
-                    <input type="number" class="form-control recipe_input" id="prep_time" placeholder="Prep Time">
-                </div>
-                <div class="form-group">
-                    <label class="btn btn-default btn-file" id="recipe_image_upload_label" for="recipe_image_upload" style="background-color: lightgray;">Upload Picture</label>
-                    <input type="file" id="recipe_image_upload" style="display: none;">
-                </div>
-            </form>
-            <div id="ingredients_div">
+    <div style="width: 98%;">
+        <div class="row">
+            <div class="col-md-7" style="margin-left: 50px;">
+                <h2>Add Your Own Recipe<!-- <small>&nbsp;&nbsp;&nbsp;<input type="checkbox" id="recipe_is_private" value="true"> Keep Private</small>--></h2>
                 <form class="form-inline">
-                    <div class="form-group" id="div_for_ingredient_1">
-                        <label class="sr-only" for="ingredient_1_name">Ingredient 1 Name</label>
-                        <input type="text" class="form-control recipe_input" id="ingredient_1_name" placeholder="Ingredient 1 Name">
-                        <label class="sr-only" for="ingredient_1_quantity">Ingredient 1 Quantity</label>
-                        <input type="text" class="form-control recipe_input" id="ingredient_1_quantity" placeholder="Ingredient 1 Quantity">
-                        <label class="sr-only" for="ingredient_1_unit">Ingredient 1 Unit</label>
-                        <input type="text" class="form-control recipe_input" id="ingredient_1_unit" placeholder="Ingredient 1 Unit">
+                    <div class="form-group">
+                        <label class="sr-only" for="recipe_name">Recipe Name</label>
+                        <input type="text" class="form-control recipe_input" id="recipe_name" placeholder="Recipe Name">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="prep_time">Prep Time</label>
+                        <input type="number" class="form-control recipe_input" id="prep_time" placeholder="Prep Time">
+                    </div>
+                    <div class="form-group">
+                        <label class="btn btn-default btn-file" id="recipe_image_upload_label" for="recipe_image_upload" style="background-color: lightgray;">Upload Picture</label>
+                        <input type="file" id="recipe_image_upload" style="display: none;">
                     </div>
                 </form>
-            </div>
-            <span class="glyphicon glyphicon-plus" style="cursor:pointer;" id="add_ingredient_button"></span>
-            <br />
-            <br />
-            <textarea class="form-control recipe_input" rows="3" placeholder="Directions" id="directions"></textarea>
-            <br />
-            <div id="tags_div">
-                <div class="form-group" id="div_for_tag_1">
-                    <label class="sr-only" for="tag_1">Tag 1</label>
-                    <input type="text" class="form-control recipe_input" id="tag_1" placeholder="Tag 1">
+                <div id="ingredients_div">
+                    <form class="form-inline">
+                        <div class="form-group" id="div_for_ingredient_1">
+                            <label class="sr-only" for="ingredient_1_name">Ingredient 1 Name</label>
+                            <input type="text" class="form-control recipe_input" id="ingredient_1_name" placeholder="Ingredient 1 Name">
+                            <label class="sr-only" for="ingredient_1_quantity">Ingredient 1 Quantity</label>
+                            <input type="text" class="form-control recipe_input" id="ingredient_1_quantity" placeholder="Ingredient 1 Quantity">
+                            <label class="sr-only" for="ingredient_1_unit">Ingredient 1 Unit</label>
+                            <input type="text" class="form-control recipe_input" id="ingredient_1_unit" placeholder="Ingredient 1 Unit">
+                        </div>
+                    </form>
                 </div>
+                <span class="glyphicon glyphicon-plus" style="cursor:pointer;" id="add_ingredient_button"></span>
+                <br />
+                <br />
+                <textarea class="form-control recipe_input" rows="3" placeholder="Directions" id="directions"></textarea>
+                <br />
+                <div id="tags_div">
+                    <div class="form-group" id="div_for_tag_1">
+                        <label class="sr-only" for="tag_1">Tag 1</label>
+                        <input type="text" class="form-control recipe_input" id="tag_1" placeholder="Tag 1">
+                    </div>
+                </div>
+                <span class="glyphicon glyphicon-plus" style="cursor:pointer;" id="add_tag_button"></span>
+                <br />
+                <br />
+                <button type="button" class="btn btn-success" id="add_recipe_button" style="float:right;">Add</button>
             </div>
-            <span class="glyphicon glyphicon-plus" style="cursor:pointer;" id="add_tag_button"></span>
-            <br />
-            <br />
-            <button type="button" class="btn btn-success" id="add_recipe_button" style="float:right;">Add</button>
-        </div>
-        <div class="col-md-4">
-            <img class="thumbnail" id="image_preview" src="no_image.svg" style="max-width:400px; margin-top: 15px;"/>
+            <div class="col-md-4">
+                <img class="thumbnail" id="image_preview" src="no_image.svg" style="max-width:400px; margin-top: 15px;"/>
+            </div>
         </div>
     </div>
 </body>
