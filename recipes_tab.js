@@ -278,6 +278,19 @@ jQuery(document).ready(function(){
             jQuery("#recipe_name").html(recipe['recipe']['name']);
             jQuery("#prep_time").html('Prep Time: '+recipe['recipe']['prep_time']+' minutes');
 
+            
+
+            var imghtml="<img class='recipe_image img-rounded' src='";
+            if (recipe['recipe']['image'] != "" && recipe['recipe']['image'] != undefined) {
+                imghtml += recipe['recipe']['image'];
+            } else {
+                imghtml += "no_image.svg";
+            }
+            imghtml += "' />";
+
+            jQuery("#image").html(imghtml);
+
+
             var html="<div>Ingredients</div>";
             for(var i in recipe['recipe']['ingredients'])
             {
