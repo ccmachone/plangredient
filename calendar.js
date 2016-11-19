@@ -88,7 +88,7 @@ function setCalendarDateIds(tableId, weekNumber)
 			if(label !== "")
 			{
 				var innerMealLabel = label;
-				if(!(weekPlan[date.getDay()]== undefined) && !(weekPlan[date.getDay()][innerMealLabel]== undefined))
+				if(weekPlan[date.getDay()] != undefined && weekPlan[date.getDay()][innerMealLabel] != undefined)
 				{
 					mealKey = weekPlan[date.getDay()][innerMealLabel][0];
 					var cellId = id; 
@@ -98,8 +98,8 @@ function setCalendarDateIds(tableId, weekNumber)
 						var idSplit = cellId.split("_");
 						mealTime = idSplit[1];
 						mealTitle = snapShot.val().name;
-						mealDiv = "<div>"+mealTitle+"<img style = 'height: 10px; width: 10px; margin-left: 5px;' src = 'http://vignette4.wikia.nocookie.net/five-nights-at-tubbyland/images/a/a5/X.png/revision/latest?cb=20160216225020' onClick = 'unplanMeal(\""+mealKey+"\",\""+innerMealLabel+"\",\""+mealTime+"\",\""+cellId+"\")'></img></div>";
-						
+						mealDiv = "<div>"+mealTitle+"<img style = 'height: 10px; width: 10px; margin-left: 5px;' src = 'http://vignette4.wikia.nocookie.net/five-nights-at-tubbyland/images/a/a5/X.png/revision/latest?cb=20160216225020' onClick = 'unplanMeal(\""+snapShot.key+"\",\""+innerMealLabel+"\",\""+mealTime+"\",\""+cellId+"\")'></img></div>";
+
 						$this.html(mealDiv);
 					}); 
 				}

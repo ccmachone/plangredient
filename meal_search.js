@@ -4,13 +4,13 @@ var currentSelectedFilters = [];
 
 $( document ).ready(function()
 {
-	
+
 	$("#searchButton").click(function()
 	{
-		
-		var searchTerm = $("#searchBar").val(); 
+
+		var searchTerm = $("#searchBar").val();
 		recipesSearch(searchTerm);
-		
+
 	});
 
 	$("#filterButton").click(function()
@@ -19,7 +19,7 @@ $( document ).ready(function()
 		currentSelectedFilters.push(input);
 		updateFilterDisplay();
 	});
-	
+
 });
 
 
@@ -47,13 +47,13 @@ function removeFilter(filter)
 
 function recipesSearch(searchTerm)
 {
-	recipes_ref.orderByChild("name").equalTo(searchTerm).once("value").then(function(snapshot) 
+	recipes_ref.orderByChild("name").equalTo(searchTerm).once("value").then(function(snapshot)
 	{
-		var queryResults = snapshot.val(); 
+		var queryResults = snapshot.val();
 		var finalResults = {};
 		var size = currentSelectedFilters.length;
 		var recipesPopulationList = [];
-		
+
 		if(size === 0)
 		{
 			finalResults = queryResults;
@@ -62,23 +62,22 @@ function recipesSearch(searchTerm)
 		{
 			for(var i = 0; i < size; i++)
 			{
-				
+
 			/*	if(currentSelectedFilters[i] === )
 				{
-					finalResults[i] = 
+					finalResults[i] =
 				} */
 			}
 		}
-		
-		size = finalResults.length;
+
 		for(var key in finalResults)
 		{
-			if (finalResults.hasOwnProperty(key)) 
+			if (finalResults.hasOwnProperty(key))
 			{
 				recipesPopulationList.push({"id" : key, "recipe" : finalResults[key]});
 			}
 		}
-		
+
 		populateDisplayGridWithRecipes(recipesPopulationList);
 
 	});
