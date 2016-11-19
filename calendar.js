@@ -78,7 +78,9 @@ function setCalendarDateIds(tableId, weekNumber)
 		var mealTitle = "";
 		var mealDiv = "";
 		var mealKey = "";
+		var mealKeys = [];
 		var mealTime = "";
+		var counter = 0;
 
 		$('td', this).each(function ()
 		{
@@ -90,18 +92,24 @@ function setCalendarDateIds(tableId, weekNumber)
 				var innerMealLabel = label;
 				if(weekPlan[date.getDay()] != undefined && weekPlan[date.getDay()][innerMealLabel] != undefined)
 				{
-					mealKey = weekPlan[date.getDay()][innerMealLabel][0];
-					var cellId = id; 
-					mealTitle = recipes_ref.child(mealKey).once("value").then(function(snapShot)
+					mealKeys = weekPlan[date.getDay()][innerMealLabel];
+					for(key in mealKeys)
 					{
-						var testing = snapShot.val();
-						var idSplit = cellId.split("_");
-						mealTime = idSplit[1];
-						mealTitle = snapShot.val().name;
-						mealDiv = "<div>"+mealTitle+"<img style = 'height: 10px; width: 10px; margin-left: 5px;' src = 'http://vignette4.wikia.nocookie.net/five-nights-at-tubbyland/images/a/a5/X.png/revision/latest?cb=20160216225020' onClick = 'unplanMeal(\""+snapShot.key+"\",\""+innerMealLabel+"\",\""+mealTime+"\",\""+cellId+"\")'></img></div>";
+						mealKey = mealKeys[key];
+						var cellId = id; 
+						mealTitle = recipes_ref.child(mealKey).once("value").then(function(snapShot)
+						{
+							counter = counter +1;
+							var testing = snapShot.val();
+							var idSplit = cellId.split("_");
+							mealTime = idSplit[1];
+							mealTitle = snapShot.val().name;
+							mealDiv = "<div id = '"+cellId+counter+"'>"+mealTitle+"<img style = 'height: 10px; width: 10px; margin-left: 5px;' src = 'http://vignette4.wikia.nocookie.net/five-nights-at-tubbyland/images/a/a5/X.png/revision/latest?cb=20160216225020' onClick = 'unplanMeal(\""+snapShot.key+"\",\""+innerMealLabel+"\",\""+mealTime+"\",\""+cellId+counter+"\")'></img></div>";
 
-						$this.html(mealDiv);
-					}); 
+							$this.append(mealDiv);
+						}); 
+					}
+					
 				}
 			}
 			
