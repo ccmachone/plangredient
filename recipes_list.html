@@ -8,6 +8,7 @@
 
     <script src="firebase_setup.js"></script>
     <script src="common.js"></script>
+    <script src="recipes_tab.js"></script>
     <script src="meal_search.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet">
@@ -19,8 +20,8 @@
             height: auto;
         }
         .large_recipe_image {
-            max-width: 240px;
-            min-height: 240px;
+            max-width: 170px;
+            min-height: 170px;
             height: auto;
         }
         .clickableRecipe {
@@ -36,10 +37,19 @@
         }
         #recipes_grid {
             border-left: 1px solid black;
-            padding-top: 10px;
+            padding-top: 15px;
         }
         #featuredNav {
-            height: 280px;
+            height: 180px;
+            width: auto;
+        }
+        .col-md-3.side-bar {
+            background-color: #ebebe0;
+        }
+        #addRecipeButton { 
+            margin-top:25px;
+            float: right;
+
         }
     </style>
 
@@ -48,7 +58,7 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="recipes_tab.js"></script>
+    
 </head>
 <body class="full">
     <div role="main">
@@ -64,9 +74,19 @@
     </div>
     <div style="width:98%;">
         <div class="row">
-            <div class="col-md-3" style="background-color: #C8E6C9;">
+
+            <div class="col-md-12" style="border-left: 1px solid black;">
+                <div>
+                    <div id="featuredRecipes">Featured:</div>
+                    <div class="row" id="featuredNav"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="border-top: 1px solid black">
+         <div class="col-md-3 side-bar">
                 <div id="searchNav">
                     <div class="search">
+                    <!-- Use these checkboxes later
                         <div class="row">
                             <input type="checkbox" name="allRecipes" id="allRecipes" value="All"/>
                             <label class="searchCheckboxLabels" for="allRecipes">Search All Recipes</label>
@@ -76,6 +96,7 @@
                             <input type="checkbox" name="myRecipes" id="myRecipes" value="My"/>
                             <label class="searchCheckboxLabels" for="myRecipes">Search My Recipes</label>
                         </div>
+                        -->
                         <br />
                         <div class="row">
                             <input type="text" class="searchInputs" id = "searchBar" name="searchBar" placeholder="Search Recipes">
@@ -85,6 +106,7 @@
                             <button id="searchButton" class="btn btn-info searchButtons" type="button">Search</button>
                         </div>
                         <br />
+                        <!-- Add filter functionality later
                         <div class="row">
                             <input type="text" class="searchInputs" id = "filterBar" name="filterBar" placeholder="Add Filters">
                         </div>
@@ -96,20 +118,16 @@
                         <div class = "row">
                             <div id="selectedFilters"></div>
                         </div>
+                        -->
+                        <div class="row">
+                            <button id="addRecipeButton" class="btn btn-info" type="button" onclick="window.location.href='recipes_add.html'">Add Recipe</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-9" style="border-left: 1px solid black;">
-                <div>
-                    <div id="featuredRecipes">Featured Recipes</div>
-                    <div class="row" id="featuredNav"></div>
-                </div>
-            </div>
-        </div>
-        <div class="row" style="border-top: 1px solid black">
-            <div class="col-md-3" style="background-color: #C8E6C9; height: 100%;">
-                <button class="btn btn-info" type="button" onclick="window.location.href='recipes_add.html'" style="margin-left:100px; margin-top:25px;">Add Recipe</button>
-            </div>
+            <!--<div class="col-md-3 side-bar" style="height: 100%;">
+                
+            </div> -->
             <div class="col-md-9" id="recipes_grid"></div>
         </div>
     </div>

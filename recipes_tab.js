@@ -213,6 +213,7 @@ recipes_ref.on("child_added", function(recipe){
 });
 
 //Example function - delete if needed
+/*
 recipes_ref.orderByChild("name").equalTo("Oreos").once("value").then(function(snapshot){
     recipes = snapshot.val();
     var recipes_list = [];
@@ -223,7 +224,7 @@ recipes_ref.orderByChild("name").equalTo("Oreos").once("value").then(function(sn
     }
     populateDisplayGridWithRecipes(recipes_list);
     console.log(recipes_list);
-});
+});*/
 
 function populateDisplayGridWithRecipes(recipes)
 {
@@ -272,7 +273,7 @@ recipes_ref.once("value").then(function(snapshot){
             recipes.push({"id" : key, "recipe" : recipes_objects[key]});
         }
     }
-    var featured_recipes_to_display = 3;
+    var featured_recipes_to_display = 4;
     var currently_displaying_featured_recipes = [];
     while (currently_displaying_featured_recipes.length < featured_recipes_to_display && currently_displaying_featured_recipes.length < recipes.length) {
         var random_index = getRandomInt(0, recipes.length - 1);
@@ -281,7 +282,7 @@ recipes_ref.once("value").then(function(snapshot){
         }
         var recipe = recipes[random_index];
         var html = "";
-        html += "<div class='largeRecipe clickableRecipe col-md-4'><div style='cursor: pointer;' onclick='window.location.href=\"recipe_display.html?recipe_id=" + recipe['id'] + "\"'><img class='large_recipe_image img-rounded' src='";
+        html += "<div class='largeRecipe clickableRecipe col-md-3'><div style='cursor: pointer;' onclick='window.location.href=\"recipe_display.html?recipe_id=" + recipe['id'] + "\"'><img class='large_recipe_image img-rounded' src='";
         if (recipe['recipe']['image'] != "" && recipe['recipe']['image'] != undefined) {
             html += recipe['recipe']['image'];
         } else {

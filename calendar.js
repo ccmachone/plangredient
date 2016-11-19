@@ -4,7 +4,34 @@ $( document ).ready(function()
 {
 	getPlanForWeek(1);
 	
+	$('#planMealSubmit').click(function()
+	{
+		var date = $("#SelectedMealDate").html();
+		var mealTime = $("#SelectedMealMeal").val();
+		var recipe_id = getParameterByName("recipe_id","");
+		console.log("IN planMealSUbmit");
+		planRecipeForMealOnDate(recipe_id,mealTime,date);
+		
+	});
 });
+
+
+
+function getParameterByName(name, url) 
+{
+	if (!url)
+	{
+		url = window.location.href;
+	}
+	name = name.replace(/[\[\]]/g, "\\$&");
+	var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+		results = regex.exec(url);
+	if (!results) return null;
+	if (!results[2]) return '';
+	return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+
 
 /*
 	weekNumber as 1 will be the current week.
@@ -60,16 +87,18 @@ function setCalendarDateIds(tableId, weekNumber)
 			$this.attr('id', id);
 			if(label !== "")
 			{
-				if(!(weekPlan[date.getDay()]== undefined) && !(weekPlan[date.getDay()][label]== undefined))
+				var innerMealLabel = label;
+				if(!(weekPlan[date.getDay()]== undefined) && !(weekPlan[date.getDay()][innerMealLabel]== undefined))
 				{
-					mealKey = weekPlan[date.getDay()][label][0];
-					mealTime = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate() + 1);
+					mealKey = weekPlan[date.getDay()][innerMealLabel][0];
 					var cellId = id; 
 					mealTitle = recipes_ref.child(mealKey).once("value").then(function(snapShot)
 					{
-						
+						var testing = snapShot.val();
+						var idSplit = cellId.split("_");
+						mealTime = idSplit[1];
 						mealTitle = snapShot.val().name;
-						mealDiv = "<div>"+mealTitle+"<div onClick = 'unplanMeal(\""+mealKey+"\",\""+label+"\",\""+mealTime+"\",\""+cellId+"\")'>   - </div></div><div> + </div>";
+						mealDiv = "<div>"+mealTitle+"<img style = 'height: 10px; width: 10px; margin-left: 5px;' src = 'http://vignette4.wikia.nocookie.net/five-nights-at-tubbyland/images/a/a5/X.png/revision/latest?cb=20160216225020' onClick = 'unplanMeal(\""+mealKey+"\",\""+innerMealLabel+"\",\""+mealTime+"\",\""+cellId+"\")'></img></div>";
 						
 						$this.html(mealDiv);
 					}); 
@@ -155,6 +184,7 @@ function unPlanRecipeForMealOnDate(recipe_id, meal_enum, date, callback)
             for (var key in planned_recipes_objects) {
                 if (planned_recipes_objects.hasOwnProperty(key)) {
 				 var test = date.toDateString();
+				 var test2 = planned_recipes_objects[key]['meal'];
                     if (planned_recipes_objects[key]['date'] == date.toDateString() && planned_recipes_objects[key]['meal'] == meal_enum && planned_recipes_objects[key]['recipe_ids'].indexOf(recipe_id) !== -1) {
                         var updated_planned_recipe = {};
                         planned_recipes_objects[key]['recipe_ids'].splice(planned_recipes_objects[key]['recipe_ids'].indexOf(recipe_id), 1);

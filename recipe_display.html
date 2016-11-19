@@ -1,4 +1,11 @@
+
 <html>
+<style>
+.col-md-3.side-bar {
+    background-color: #ebebe0;
+    border-top: 1px solid black;
+}
+</style>
 <head>
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -7,7 +14,10 @@
     <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
     <script src="firebase_setup.js"></script>
     <script src="common.js"></script>
+    <script src="recipes_tab.js"></script>
     <script src="meal_search.js"></script>
+    <script src="modal.js"></script>
+    <script src="calendar.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Optional theme -->
@@ -15,16 +25,9 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="recipes_tab.js"></script>
+    
     <link href="https://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet">
     <link href="common.css" rel="stylesheet" >
-    <style>
-        .large_recipe_image {
-            max-width: 240px;
-            min-height: 240px;
-            height: auto;
-        }
-    </style>
 </head>
 <body class="full">
     <div role="main">
@@ -41,9 +44,12 @@
 
     <div style="width:98%;">
         <div class="row">
-            <div class="col-md-3" style="background-color: #C8E6C9;">
+	   
+            <div class="col-md-3 side-bar">
                 <div id="searchNav">
                     <div class="search">
+                        <!--Use these checkboxes later-->
+				    <!--
                         <div class="row">
                             <input type="checkbox" name="allRecipes" id="allRecipes" value="All"/>
                             <label class="searchCheckboxLabels" for="allRecipes">Search All Recipes</label>
@@ -53,15 +59,17 @@
                             <input type="checkbox" name="myRecipes" id="myRecipes" value="My"/>
                             <label class="searchCheckboxLabels" for="myRecipes">Search My Recipes</label>
                         </div>
+                        
                         <br />
                         <div class="row">
                             <input type="text" class="searchInputs" id = "searchBar" name="searchBar" placeholder="Search Recipes">
                         </div>
                         <br />
                         <div class="row">
-                            <button id="searchButton" class="btn btn-info searchButtons" type="button">Search</button>
+                            <a href = "recipes_list.html"><button id="searchButton" class="btn btn-info searchButtons" type="button">Search</button></a>
                         </div>
                         <br />
+                       
                         <div class="row">
                             <input type="text" class="searchInputs" id = "filterBar" name="filterBar" placeholder="Add Filters">
                         </div>
@@ -73,6 +81,9 @@
                         <div class = "row">
                             <div id="selectedFilters"></div>
                         </div>
+                        -->
+				    <a href = "recipes_list.html"><button class="btn btn-info searchButtons" type="button">Go to Recipes</button></a>
+				    <a href = "calendar.html"><button class="btn btn-info searchButtons" type="button">Go to Calendar</button></a>
                     </div>
                 </div>
             </div>
@@ -87,5 +98,37 @@
         </div>
 
     </div>
+	<!--Code for the Modal-->
+	<div id = "planningModal" class="modal">
+		<div class="modal-content">
+			<span class="close">X</span>
+			<div>Select which day you would like to plan for:</div >
+
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="SelectedMealDate">Select Day
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a id="Sun" href="#">Sunday</a></li>
+                    <li><a id="Mon" href="#">Monday</a></li>
+                    <li><a id="Tues" href="#">Tuesday</a></li>
+                    <li><a id="Wed" href="#">Wednesday</a></li>
+                    <li><a id="Thurs" href="#">Thursday</a></li>
+                    <li><a id="Fri" href="#">Friday</a></li>
+                    <li><a id="Sat" href="#">Saturday</a></li>
+
+                </ul>
+			 
+			<select id = "SelectedMealMeal">
+				<option>breakfast</option>
+				<option>lunch</option>
+				<option>dinner</option>
+			</select>
+
+                <button class="saveday" id = "planMealSubmit">Plan</button>
+            </div>
+		</div>
+	
+		
+	</div>
 </body>
 </html>

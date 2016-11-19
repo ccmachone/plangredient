@@ -93,6 +93,7 @@ function getGroceries(callback)
         today.setMilliseconds(0);
 
         planned_recipes_ref.orderByChild("email").equalTo(logged_in_user['user']['email']).once("value").then(function(snapshot) {
+            console.log("working...");
             planned_recipes_objects = snapshot.val();
             var planned_recipe_ids = {};
             for (var key in planned_recipes_objects) {
@@ -110,7 +111,9 @@ function getGroceries(callback)
             }
             var grocery_list = {};
             var planned_recipes = [];
+            console.log("still working...");
             recipes_ref.once("value").then(function(snapshot){
+                console.log("still working...");
                 recipes_objects = snapshot.val();
                 for (var recipe_id in recipes_objects) {
                     if (recipes_objects.hasOwnProperty(recipe_id)) {
@@ -129,6 +132,7 @@ function getGroceries(callback)
                         }
                     }
                 }
+                console.log("still working...");
                 buildGroceryList(grocery_list, planned_recipes);
             });
             if (callback == undefined) {

@@ -60,6 +60,11 @@
     float: right;
 
 }
+#addRecipeButton {
+    margin-right:30px;
+    float: right;
+
+}
 .searchInputs {
     width: 90%;
 }
