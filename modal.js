@@ -2,6 +2,7 @@
 
 $( document ).ready(function()
 {
+	
 		// Get the modal
 	var modal = document.getElementById('planningModal');
 
@@ -87,4 +88,6 @@ $( document ).ready(function()
 	Sat.onclick=function() {
 		jQuery("#SelectedMealDate").html(date6);
 	}
+
 });
+
