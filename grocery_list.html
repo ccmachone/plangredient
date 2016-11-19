@@ -57,68 +57,34 @@
             </ul>
         </div>
     </div>
-    <div class="container theme-showcase" role="main">
-        <div id="grocery_list">
-        <h4>Groceries</h4>
-        <div class="btn btn-success" id="print_list" onClick="printDiv()">Print</div>
-        <ul>
-            <li>Apples
-                
-                <input type="text" class="num_menu"></select>
-                <button class="delete">x</button>
-                <div class="check_del">Remove?
-                    <button class="yes">Yes</button>
-                    <button class="cancel">Cancel</button>
+    <div style="width: 98%">
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                <h1>Groceries</h1>
+                <div class="btn btn-success" id="print_list" onClick="printDiv()" style="float-right;">Print</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div id="grocery_list">
+                    <!--<ul id="grocery_list_items"></ul>-->
+                    <div class="form-horizontal" id="grocery_list_items">
+                        <!--<div class="form-group">-->
+                            <!--<label for="inputEmail3" class="col-sm-2 control-label">Email</label>-->
+                            <!--<div class="col-sm-2">-->
+                                <!--<input type="email" class="form-control" id="inputEmail3">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
                 </div>
-            </li>
-            <br>
-            <li>Bacon
-                <input type="text" class="num_menu"></select>
-                <button class="delete">x</button>
-                <div class="check_del">Remove?
-                    <button class="yes">Yes</button>
-                    <button class="cancel">Cancel</button>
+            </div>
+            <div class="col-md-6">
+                <div id="meal_list">
+                    <h4>Planned Meals</h4>
+                    <ul id="meal_list_items"></ul>
                 </div>
-            </li>
-            <br>
-            <li>Beef
-                <input type="text" class="num_menu"></select>
-                <button class="delete">x</button>
-                <div class="check_del">Remove?
-                    <button class="yes">Yes</button>
-                    <button class="cancel">Cancel</button>
-                </div>
-            </li>
-            <br>
-            <li>Broccoli
-                <input type="text" class="num_menu"></select>
-                <button class="delete">x</button>
-                <div class="check_del">Remove?
-                    <button class="yes">Yes</button>
-                    <button class="cancel">Cancel</button>
-                </div>
-            </li>
-            <br>
-            <li>Chicken
-                <input type="text" class="num_menu"></select>
-                <button class="delete">x</button>
-                <div class="check_del">Remove?
-                    <button class="yes">Yes</button>
-                    <button class="cancel">Cancel</button>
-                </div>
-            </li>
-            <br>
-            <li>Flour
-                <input type="text" class="num_menu"></select>
-                <button class="delete">x</button>
-                <div class="check_del">Remove?
-                    <button class="yes">Yes</button>
-                    <button class="cancel">Cancel</button>
-                </div>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
-</div>
-
 </body>
 </html>
