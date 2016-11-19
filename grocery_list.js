@@ -47,7 +47,7 @@ function buildGroceryList(grocery_list, planned_recipes)
                     list_items_html += "<div class='form-group'>";
                     list_items_html += "<label class='col-sm-6 control-label'>" + ingredient_name + " (" + ingredient_measurement + ")</label>";
                     list_items_html += "<div class='col-sm-2'>";
-                    list_items_html += "<input type='number' class='form-control' value='" + ingredient_amount + "' step='1' min='0' />";
+                    list_items_html += "<input type='number' class='form-control' value='" + ingredient_amount + "' step='1' min='0' style='max-width:100px;'/>";
                     list_items_html += "</div>";
                     list_items_html += "<div class='col-sm-2 non_printable'>";
                     list_items_html += "<button class='delete non_printable'>x</button>";
