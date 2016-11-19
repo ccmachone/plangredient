@@ -185,7 +185,6 @@ function unPlanRecipeForMealOnDate(recipe_id, meal_enum, date, callback)
                 if (planned_recipes_objects.hasOwnProperty(key)) {
 				 var test = date.toDateString();
 				 var test2 = planned_recipes_objects[key]['meal'];
-				 var test3 = planned_recipes_objects[key]['recipe_ids'].indexOf(recipe_id);
                     if (planned_recipes_objects[key]['date'] == date.toDateString() && planned_recipes_objects[key]['meal'] == meal_enum && planned_recipes_objects[key]['recipe_ids'].indexOf(recipe_id) !== -1) {
                         var updated_planned_recipe = {};
                         planned_recipes_objects[key]['recipe_ids'].splice(planned_recipes_objects[key]['recipe_ids'].indexOf(recipe_id), 1);
