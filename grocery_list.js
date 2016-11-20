@@ -84,6 +84,8 @@ function getGroceries(callback)
 {
     var logged_in_user = getLoggedInUser();
     if (logged_in_user['id'] == undefined) {
+        console.log("false");
+        window.location.href = "account.html";
         return false;
     } else {
         var today = new Date();

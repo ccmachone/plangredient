@@ -131,6 +131,8 @@ function planRecipeForMealOnDate(recipe_id, meal_enum, date, callback)
 {
     var logged_in_user = getLoggedInUser();
     if (logged_in_user['id'] == undefined) {
+        alert("false");
+        window.location.href = "account.html";
         return false;
     } else {
         meal_enum = [MEAL_BREAKFAST, MEAL_LUNCH, MEAL_DINNER].indexOf(meal_enum) === -1 ? MEAL_BREAKFAST : meal_enum;
@@ -182,6 +184,8 @@ function unPlanRecipeForMealOnDate(recipe_id, meal_enum, date, callback)
 {
     var logged_in_user = getLoggedInUser();
     if (logged_in_user['id'] == undefined) {
+        alert("false");
+        window.location.href = "account.html";
         return false;
     } else {
         meal_enum = [MEAL_BREAKFAST, MEAL_LUNCH, MEAL_DINNER].indexOf(meal_enum) === -1 ? MEAL_BREAKFAST : meal_enum;
@@ -220,6 +224,8 @@ function unPlanAllRecipesForMealOnDate(meal_enum, date, callback)
 {
     var logged_in_user = getLoggedInUser();
     if (logged_in_user['id'] == undefined) {
+        alert("false");
+        window.location.href = "account.html";
         return false;
     } else {
         meal_enum = [MEAL_BREAKFAST, MEAL_LUNCH, MEAL_DINNER].indexOf(meal_enum) === -1 ? MEAL_BREAKFAST : meal_enum;
@@ -254,6 +260,9 @@ function unPlanAllRecipesOnDate(date, callback)
 {
     var logged_in_user = getLoggedInUser();
     if (logged_in_user['id'] == undefined) {
+        
+        alert("false");
+        window.location.href = "account.html";
         return false;
     } else {
         date = new Date(date);
@@ -287,6 +296,8 @@ function getPlanForWeek(week_number, callback)
 {
     var logged_in_user = getLoggedInUser();
     if (logged_in_user['id'] == undefined) {
+        alert("false");
+        window.location.href = "account.html";
         return false;
     } else {
         var one_day_in_milliseconds = 60 * 60 * 24 * 1000;
