@@ -7,7 +7,7 @@ jQuery(document).on("click", ".delete", function(){
 });
 
 jQuery(document).on("click", ".yes", function(){
-    jQuery(this).parent(".check_del").parent().hide();
+    jQuery(this).parent(".check_del").parent().parent().hide();
 });
 
 jQuery(document).on("click", ".cancel", function(){
