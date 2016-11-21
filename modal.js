@@ -2,7 +2,7 @@
 
 $( document ).ready(function()
 {
-	
+
 		// Get the modal
 	var modal = document.getElementById('planningModal');
 
@@ -15,7 +15,7 @@ $( document ).ready(function()
 	// Get the <button> element that closes and saves the date to plan the modal
 	var spansave = document.getElementsByClassName("saveday")[0];
 
-	// When the user clicks on the button, open the modal 
+	// When the user clicks on the button, open the modal
 	btn.onclick = function() {
 	    modal.style.display = "block";
 	}
@@ -28,6 +28,7 @@ $( document ).ready(function()
 	// When the user clicks on <span> (plan), close the modal
 	spansave.onclick = function() {
 	    modal.style.display = "none";
+        jQuery.notify("Planned meal!", "success");
 	}
 
 
