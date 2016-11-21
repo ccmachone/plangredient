@@ -3,7 +3,7 @@ var weekPlan = {};
 $( document ).ready(function()
 {
 	getPlanForWeek(1);
-	
+
 	$('#planMealSubmit').click(function()
 	{
 		var date = $("#SelectedMealDate").html();
@@ -11,13 +11,13 @@ $( document ).ready(function()
 		var recipe_id = getParameterByName("recipe_id","");
 		console.log("IN planMealSUbmit");
 		planRecipeForMealOnDate(recipe_id,mealTime,date);
-		
+
 	});
 });
 
 
 
-function getParameterByName(name, url) 
+function getParameterByName(name, url)
 {
 	if (!url)
 	{
@@ -49,15 +49,15 @@ function setCalendarDateIds(tableId, weekNumber)
 
 		switch(rowCounter)
 		{
-		
+
 			case 3:
 				label = "breakfast";
 				break;
-			
+
 			case 5:
 				label = "lunch";
 				break;
-			
+
 			case 7:
 				label = "dinner";
 				break;
@@ -96,7 +96,7 @@ function setCalendarDateIds(tableId, weekNumber)
 					for(key in mealKeys)
 					{
 						mealKey = mealKeys[key];
-						var cellId = id; 
+						var cellId = id;
 						mealTitle = recipes_ref.child(mealKey).once("value").then(function(snapShot)
 						{
 							counter = counter +1;
@@ -107,13 +107,13 @@ function setCalendarDateIds(tableId, weekNumber)
 							mealDiv = "<div id = '"+cellId+counter+"'>"+mealTitle+"<img style = 'height: 10px; width: 10px; margin-left: 5px;' src = 'http://vignette4.wikia.nocookie.net/five-nights-at-tubbyland/images/a/a5/X.png/revision/latest?cb=20160216225020' onClick = 'unplanMeal(\""+snapShot.key+"\",\""+innerMealLabel+"\",\""+mealTime+"\",\""+cellId+counter+"\")'></img></div>";
 
 							$this.append(mealDiv);
-						}); 
+						});
 					}
-					
+
 				}
 			}
-			
-			
+
+
 			date.setDate(date.getDate() +1);
 		})
 
@@ -131,7 +131,6 @@ function planRecipeForMealOnDate(recipe_id, meal_enum, date, callback)
 {
     var logged_in_user = getLoggedInUser();
     if (logged_in_user['id'] == undefined) {
-        alert("false");
         window.location.href = "account.html";
         return false;
     } else {
@@ -184,7 +183,6 @@ function unPlanRecipeForMealOnDate(recipe_id, meal_enum, date, callback)
 {
     var logged_in_user = getLoggedInUser();
     if (logged_in_user['id'] == undefined) {
-        alert("false");
         window.location.href = "account.html";
         return false;
     } else {
@@ -224,7 +222,6 @@ function unPlanAllRecipesForMealOnDate(meal_enum, date, callback)
 {
     var logged_in_user = getLoggedInUser();
     if (logged_in_user['id'] == undefined) {
-        alert("false");
         window.location.href = "account.html";
         return false;
     } else {
@@ -260,8 +257,7 @@ function unPlanAllRecipesOnDate(date, callback)
 {
     var logged_in_user = getLoggedInUser();
     if (logged_in_user['id'] == undefined) {
-        
-        alert("false");
+
         window.location.href = "account.html";
         return false;
     } else {
@@ -296,7 +292,6 @@ function getPlanForWeek(week_number, callback)
 {
     var logged_in_user = getLoggedInUser();
     if (logged_in_user['id'] == undefined) {
-        alert("false");
         window.location.href = "account.html";
         return false;
     } else {
