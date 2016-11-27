@@ -39,34 +39,38 @@ $( document ).ready(function()
 	    }
 	}
 
+	var days=["Sunday", "Monday", "Tueday", "Wednesday", "Thursday", "Friday", "Saturday"];
+	var months=["January", "February", "March", "April", "May", "June", "July", "August",
+					"September", "October", "November", "December"];
+
 	var date = new Date();
 	var weekDay = date.getDay();
 	date.setDate(date.getDate() - (weekDay));
-	jQuery("#Sun").html(date);
+	jQuery("#Sun").html(days[date.getDay()]+ " "+months[date.getMonth()]+ " "+date.getDate());
 
 	var date1=new Date();
 	date1.setDate(date1.getDate()-(weekDay) + 1);
-	jQuery("#Mon").html(date1);
+	jQuery("#Mon").html(days[date1.getDay()]+ " "+months[date1.getMonth()]+ " "+date1.getDate());
 
 	var date2=new Date();
 	date2.setDate(date2.getDate() - (weekDay) + 2);
-	jQuery("#Tues").html(date2);
+	jQuery("#Tues").html(days[date2.getDay()]+ " "+months[date2.getMonth()]+ " "+date2.getDate());
 
 	var date3=new Date();
 	date3.setDate(date3.getDate() - (weekDay) + 3);
-	jQuery("#Wed").html(date3);
+	jQuery("#Wed").html(days[date3.getDay()]+ " "+months[date3.getMonth()]+ " "+date3.getDate());
 
 	var date4=new Date();
 	date4.setDate(date4.getDate() - (weekDay)+ 4);
-	jQuery("#Thurs").html(date4);
+	jQuery("#Thurs").html(days[date4.getDay()]+ " "+months[date4.getMonth()]+ " "+date4.getDate());
 
 	var date5=new Date();
 	date5.setDate(date5.getDate() - (weekDay)+ 5);
-	jQuery("#Fri").html(date5);
+	jQuery("#Fri").html(days[date5.getDay()]+ " "+months[date5.getMonth()]+ " "+date5.getDate());
 
 	var date6=new Date();
 	date6.setDate(date6.getDate()- (weekDay) + 6);
-	jQuery("#Sat").html(date6);
+	jQuery("#Sat").html(days[date6.getDay()]+ " "+months[date6.getMonth()]+ " "+date6.getDate());
 
 	Sun.onclick=function() {
 		jQuery("#SelectedMealDate").html(date);

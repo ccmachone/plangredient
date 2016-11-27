@@ -105,20 +105,18 @@
 			<div>Select which day you would like to plan for:</div >
 
             <div class="dropdown">
-                <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown" id="SelectedMealDate">Select Day
-                <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li><a id="Sun" href="#">Sunday</a></li>
-                    <li><a id="Mon" href="#">Monday</a></li>
-                    <li><a id="Tues" href="#">Tuesday</a></li>
-                    <li><a id="Wed" href="#">Wednesday</a></li>
-                    <li><a id="Thurs" href="#">Thursday</a></li>
-                    <li><a id="Fri" href="#">Friday</a></li>
-                    <li><a id="Sat" href="#">Saturday</a></li>
+                <p id="SelectedMealDate">Day</p>
+                <select size=7  class= "btn btn-info">
+                    <option id="Sun">Sunday</option>
+                    <option id="Mon">Monday</option>
+                    <option id="Tues">Tuesday</option>
+                    <option id="Wed">Wednesday</option>
+                    <option id="Thurs">Thursday</option>
+                    <option id="Fri">Friday</option>
+                    <option id="Sat">Saturday</option>
+                </select>
 
-                </ul>
-
-			<select id = "SelectedMealMeal" class= "btn btn-info">
+			<select size=3 id = "SelectedMealMeal" class= "btn btn-info">
 				<option>breakfast</option>
 				<option>lunch</option>
 				<option>dinner</option>
