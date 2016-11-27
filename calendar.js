@@ -3,6 +3,8 @@ var weekPlan = {};
 $( document ).ready(function()
 {
 	getPlanForWeek(1);
+	
+	var quickPlanModal = document.getElementById('quickPlanModal');
 
 	$('#planMealSubmit').click(function()
 	{
@@ -12,6 +14,11 @@ $( document ).ready(function()
 		console.log("IN planMealSUbmit");
 		planRecipeForMealOnDate(recipe_id,mealTime,date);
 
+	});
+	
+	$('#quickPlanModalClose').click(function()
+	{
+		quickPlanModal.style.display="none";
 	});
 });
 
@@ -85,10 +92,12 @@ function setCalendarDateIds(tableId, weekNumber)
 		$('td', this).each(function ()
 		{
 			var $this = $(this);
-			id = label + "_" + (date.getMonth() + 1) +"/"+date.getDate() +  "/" + date.getFullYear();
+			var idDatePortion = (date.getMonth() + 1) +"/"+date.getDate() +  "/" + date.getFullYear();
+			id = label + "_" + idDatePortion;
 			$this.attr('id', id);
 			if(label !== "")
 			{
+				$this.append("<img src='http://images.clipartpanda.com/addition-clipart-green-plus-sign-md.png' style='height: 10px; width: 10px;' onclick='quickAdd(\""+idDatePortion+"\",\""+label+"\")'></img>");
 				var innerMealLabel = label;
 				if(weekPlan[date.getDay()] != undefined && weekPlan[date.getDay()][innerMealLabel] != undefined)
 				{
@@ -126,6 +135,29 @@ function unplanMeal(mealKey, meal, mealTime,cellId)
 	unPlanRecipeForMealOnDate(mealKey, meal, mealTime);
 }
 
+//Modal for quick planning-----------------------------------------------------------------------
+function quickAdd(date, mealType)
+{
+	quickPlanModal.style.display = "block";
+	
+	recipes_ref.orderByChild("name").once("value").then(function(snapshot)
+	{
+		var displayOptions = "<ul>";
+		recipeObjects = snapshot.val();
+		for(recipe in recipeObjects)
+		{
+			displayOptions = displayOptions + "<li>"+recipeObjects[recipe].name+"<button class = 'btn btn-info myBTN' onclick='planRecipeForMealOnDate(\""+recipe+"\",\""+mealType+"\",\""+date+"\"); showCheck(\"check"+recipe+"\")'>Plan</button><img id='check"+recipe+"' class = 'checkDisplayHide' style = 'width: 20px; height: 20px; margin-left: 5px' src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQl4-AIMQ3WLihy27R4RcFjheNTnSi2wzkyuDe8bRb71tl7c75YrOkTt5k'></img>"
+		}
+		displayOptions = displayOptions + "</ul>";
+		$("#quickPlanMealSelection").html(displayOptions);
+	})
+}
+
+function showCheck(id)
+{
+	$("#"+id).toggleClass("checkDisplayHide");
+}
+//-----------------------------------------------------------------------------------------------
 
 function planRecipeForMealOnDate(recipe_id, meal_enum, date, callback)
 {

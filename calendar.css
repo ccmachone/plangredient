@@ -9,6 +9,20 @@
     border-right: 1px solid black; 
 }
 
+.checkDisplayHide
+{
+	display:none;
+}
+
+#quickPlanModal
+{
+	overflow:auto;
+}
+.myBTN
+{
+	margin-left: 10;
+}
+
 .recipe_image {
             max-width: 180px;
             max-height: 180px;
