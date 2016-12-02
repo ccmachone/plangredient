@@ -94,5 +94,14 @@ $( document ).ready(function()
 		jQuery("#SelectedMealDate").html(date6);
 	}
 
+	var abbr_days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+    now = new Date();
+    for (var key in abbr_days) {
+        var date_text = jQuery("#" + abbr_days[key]).html() + " " + now.getFullYear();
+        var then = new Date(date_text);
+        if (then < now) {
+            jQuery("#" + abbr_days[key]).hide();
+        }
+    }
 });
 
