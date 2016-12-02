@@ -339,6 +339,12 @@ jQuery(document).ready(function(){
     }
 });
 
+jQuery(document).ready(function(){
+    var td = new Date().getDay();
+    td = (td == 0) ? 7 : td;
+    $('select[id=weekMenu]').find('option').eq( td ).prop('selected', true)
+    .end().change();
+})
 
 
 
