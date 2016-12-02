@@ -99,7 +99,7 @@ $( document ).ready(function()
     for (var key in abbr_days) {
         var date_text = jQuery("#" + abbr_days[key]).html() + " " + now.getFullYear();
         var then = new Date(date_text);
-        if (then < now) {
+        if (then.getDay() < now.getDay()) {
             jQuery("#" + abbr_days[key]).hide();
         }
     }
