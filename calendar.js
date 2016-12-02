@@ -3,7 +3,7 @@ var weekPlan = {};
 $( document ).ready(function()
 {
 	getPlanForWeek(1);
-	
+
 	var quickPlanModal = document.getElementById('quickPlanModal');
 
 	$('#planMealSubmit').click(function()
@@ -15,13 +15,17 @@ $( document ).ready(function()
 		planRecipeForMealOnDate(recipe_id,mealTime,date);
 
 	});
-	
+
 	$('#quickPlanModalClose').click(function()
 	{
 		quickPlanModal.style.display="none";
 	});
 });
 
+recipes_ref.on("child_added", function(recipe){
+    recipe_object = recipe.val();
+    addRecipeToDisplayGrid(recipe.key, recipe_object);
+});
 
 
 function getParameterByName(name, url)
@@ -139,7 +143,7 @@ function unplanMeal(mealKey, meal, mealTime,cellId)
 function quickAdd(date, mealType)
 {
 	quickPlanModal.style.display = "block";
-	
+
 	recipes_ref.orderByChild("name").once("value").then(function(snapshot)
 	{
 		var displayOptions = "<ul>";
