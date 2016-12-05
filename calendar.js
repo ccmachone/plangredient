@@ -146,20 +146,20 @@ function quickAdd(date, mealType)
 
 	recipes_ref.orderByChild("name").once("value").then(function(snapshot)
 	{
-		var displayOptions = "<ul>";
+		var displayOptions = "";
 		recipeObjects = snapshot.val();
 		for(recipe in recipeObjects)
 		{
-			displayOptions = displayOptions + "<li>"+recipeObjects[recipe].name+"<button class = 'btn btn-info myBTN' onclick='planRecipeForMealOnDate(\""+recipe+"\",\""+mealType+"\",\""+date+"\"); showCheck(\"check"+recipe+"\")'>Plan</button><img id='check"+recipe+"' class = 'checkDisplayHide' style = 'width: 20px; height: 20px; margin-left: 5px' src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQl4-AIMQ3WLihy27R4RcFjheNTnSi2wzkyuDe8bRb71tl7c75YrOkTt5k'></img>"
+			displayOptions = displayOptions + "<div class = 'quickPlanOptionRow'><button class = 'btn btn-info myBTN' onclick='planRecipeForMealOnDate(\""+recipe+"\",\""+mealType+"\",\""+date+"\"); showCheck(\"check"+recipe+"\")'>Plan</button>"+recipeObjects[recipe].name+"<img id='check"+recipe+"' class = 'checkDisplayHide' style = 'width: 20px; height: 20px; margin-left: 5px' src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQl4-AIMQ3WLihy27R4RcFjheNTnSi2wzkyuDe8bRb71tl7c75YrOkTt5k'></img></div><br/>"
 		}
-		displayOptions = displayOptions + "</ul>";
+		displayOptions = displayOptions + "";
 		$("#quickPlanMealSelection").html(displayOptions);
 	})
 }
 
 function showCheck(id)
 {
-	$("#"+id).toggleClass("checkDisplayHide");
+	$("#"+id).removeClass("checkDisplayHide");
 }
 //-----------------------------------------------------------------------------------------------
 
