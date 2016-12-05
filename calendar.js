@@ -9,7 +9,7 @@ $( document ).ready(function()
 	$('#planMealSubmit').click(function()
 	{
 		var date = $("#SelectedMealDate").html();
-		var mealTime = $("#SelectedMealMeal").val();
+		var mealTime = $("#SelectedMealMeal").val().toLowerCase();
 		var recipe_id = getParameterByName("recipe_id","");
 		console.log("IN planMealSUbmit");
 		planRecipeForMealOnDate(recipe_id,mealTime,date);
