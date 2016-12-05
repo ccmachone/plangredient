@@ -185,6 +185,10 @@ jQuery(document).on("click", "#add_recipe_button", function(){
         recipe['ingredients'].push(ingredient);
         ingredient_number++;
     }
+    if (jQuery("#recipe_image_upload")[0].files.length == 0) {
+        jQuery.notify("Image is required!");
+        return false;
+    }
     recipe['image'] = recipe_image;
     addRecipe(recipe, function(recipe_id){
         jQuery.notify("Successfully added recipe!", "success");
@@ -331,7 +335,7 @@ jQuery(document).ready(function(){
 
             jQuery("#recipe_items").html(html);
 
-          
+
             jQuery("#ingredients").html(recipe['recipe']['ingredients']);
             jQuery("#directions").html(recipe['recipe']['directions']);
 
